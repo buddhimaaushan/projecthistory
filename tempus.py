@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """tempus - a tiny time tracker for the terminal."""
 
+import argparse
 import json
 import os
-import sys
 from datetime import datetime
 
+DATA_FILE = os.path.expanduser(os.environ.get("TEMPUS_FILE", "~/.tempus.json"))
 DATA_FILE = os.path.expanduser("~/.tempus.json")
 
 
@@ -58,3 +59,25 @@ def status():
     entry = data["entries"][-1]
     print("%s (started %s)" % (entry["label"], entry["start"]))
     return 0
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p_start = sub.add_parser("start", help="start a new entry")
+    p_start.add_argument("label")
+
+    sub.add_parser("stop", help="stop the running entry")
+    sub.add_parser("status", help="show the running entry")
+
+    args = parser.parse_args(argv)
+    if args.command == "start":
+        return start(args.label)
+    if args.command == "stop":
+        return stop()
+    return status()
+
+
+if __name__ == "__main__":
+    sys.exit(main())
