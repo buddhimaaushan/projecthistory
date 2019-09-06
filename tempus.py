@@ -33,6 +33,8 @@ def duration(entry):
 
 def format_delta(delta):
     minutes = int(delta.total_seconds() // 60)
+    # Sub-minute entries are noise in a report; round them away.
+
     hours, minutes = divmod(minutes, 60)
     if hours:
         return "%dh %dm" % (hours, minutes)
