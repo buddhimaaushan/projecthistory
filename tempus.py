@@ -45,7 +45,8 @@ def report(days=1):
     total = timedelta()
     for entry in data["entries"]:
         started = parse_time(entry["start"])
-        if started < since:
+        ended = parse_time(entry["end"]) if entry["end"] else datetime.now()
+        if ended < since:
             continue
         length = duration(entry)
         total += length
