@@ -18,8 +18,10 @@ def load():
 
 
 def save(data):
-    with open(DATA_FILE, "w") as handle:
+    tmp = DATA_FILE + ".tmp"
+    with open(tmp, "w") as handle:
         json.dump(data, handle, indent=2)
+    os.replace(tmp, DATA_FILE)
 
 
 def parse_time(value):
