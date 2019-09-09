@@ -116,8 +116,15 @@ def status():
         print("no entries yet")
         return 0
     entry = data["entries"][-1]
-    print("%s (started %s)" % (entry["label"], entry["start"]))
+    if entry["end"] is None:
+        print("%s (started %s, running %s)" % (entry["label"], entry["start"], format_delta(duration(entry))))
+    else:
+        print("%s (started %s, stopped %s)" % (entry["label"], entry["start"], entry["end"]))
     return 0
+
+
+def today():
+    return report(days=1)
 
 
 def main(argv=None):
@@ -132,6 +139,9 @@ def main(argv=None):
 
     sub.add_parser("list", help="show the most recent entries")
 
+    p_today = sub.add_parser("today", help="report for the current day")
+    p_today.add_argument("--json", action="store_true")
+
     p_delete = sub.add_parser("delete", help="remove an entry by index")
     p_delete.add_argument("index", type=int)
 
@@ -145,6 +155,8 @@ def main(argv=None):
         return stop()
     if args.command == "list":
         return list_entries()
+    if args.command == "today":
+        return today()
     if args.command == "delete":
         return delete(args.index)
     if args.command == "report":
