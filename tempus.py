@@ -4,7 +4,7 @@
 import argparse
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 DATA_FILE = os.path.expanduser(os.environ.get("TEMPUS_FILE", "~/.tempus.json"))
 DATA_FILE = os.path.expanduser("~/.tempus.json")
@@ -22,6 +22,40 @@ def save(data):
         json.dump(data, handle, indent=2)
 
 
+def parse_time(value):
+    return datetime.fromisoformat(value)
+
+
+def duration(entry):
+    end = parse_time(entry["end"]) if entry["end"] else datetime.now()
+    return end - parse_time(entry["start"])
+
+
+def format_delta(delta):
+    minutes = int(delta.total_seconds() // 60)
+    hours, minutes = divmod(minutes, 60)
+    if hours:
+        return "%dh %dm" % (hours, minutes)
+    return "%dm" % minutes
+
+
+def report(days=1):
+    data = load()
+    since = datetime.now() - timedelta(days=days)
+    total = timedelta()
+    for entry in data["entries"]:
+        started = parse_time(entry["start"])
+        if started < since:
+            continue
+        length = duration(entry)
+        total += length
+        print("%-30s %s" % (entry["label"], format_delta(length)))
+    print("-" * 40)
+    print("%-30s %s" % ("total", format_delta(total)))
+    return 0
+
+
+def start(label):
 def start(label):
     data = load()
     if data["entries"] and data["entries"][-1]["end"] is None:
@@ -71,11 +105,16 @@ def main(argv=None):
     sub.add_parser("stop", help="stop the running entry")
     sub.add_parser("status", help="show the running entry")
 
+    p_report = sub.add_parser("report", help="show totals for the last N days")
+    p_report.add_argument("--days", type=int, default=1)
+
     args = parser.parse_args(argv)
     if args.command == "start":
         return start(args.label)
     if args.command == "stop":
         return stop()
+    if args.command == "report":
+        return report(args.days)
     return status()
 
 
