@@ -39,6 +39,26 @@ def format_delta(delta):
     return "%dm" % minutes
 
 
+def list_entries(limit=10):
+    data = load()
+    for entry in data["entries"][-limit:]:
+        print("%s  %-30s %s" % (entry["start"], entry["label"], entry["end"] or "running"))
+    return 0
+
+
+def delete(index):
+    data = load()
+    try:
+        removed = data["entries"].pop(index)
+    except IndexError:
+        print("no entry at index %d" % index)
+        return 1
+    save(data)
+    print("deleted: %s" % removed["label"])
+    return 0
+
+
+def report(days=1):
 def report(days=1):
     data = load()
     since = datetime.now() - timedelta(days=days)
@@ -106,6 +126,11 @@ def main(argv=None):
     sub.add_parser("stop", help="stop the running entry")
     sub.add_parser("status", help="show the running entry")
 
+    sub.add_parser("list", help="show the most recent entries")
+
+    p_delete = sub.add_parser("delete", help="remove an entry by index")
+    p_delete.add_argument("index", type=int)
+
     p_report = sub.add_parser("report", help="show totals for the last N days")
     p_report.add_argument("--days", type=int, default=1)
 
@@ -114,6 +139,10 @@ def main(argv=None):
         return start(args.label)
     if args.command == "stop":
         return stop()
+    if args.command == "list":
+        return list_entries()
+    if args.command == "delete":
+        return delete(args.index)
     if args.command == "report":
         return report(args.days)
     return status()
