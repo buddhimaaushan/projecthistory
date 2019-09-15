@@ -14,7 +14,10 @@ def load():
     if not os.path.exists(DATA_FILE):
         return {"entries": []}
     with open(DATA_FILE) as handle:
-        return json.load(handle)
+        raw = handle.read().strip()
+    if not raw:
+        return {"entries": []}
+    return json.loads(raw)
 
 
 def save(data):
