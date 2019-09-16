@@ -11,3 +11,12 @@ $ python tempus.py status
 ```
 
 Data is stored as JSON in `~/.tempus.json`.
+
+## Reports
+
+```
+$ python tempus.py report --days 7
+$ python tempus.py list
+```
+
+Report totals are rounded down to whole minutes.
