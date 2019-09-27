@@ -67,6 +67,12 @@ def delete(index):
 
 
 def report(days=1):
+def parse_range(value):
+    if not value.endswith("d"):
+        raise ValueError("expected a value like 7d")
+    return int(value[:-1])
+
+
 def report(days=1):
     data = load()
     since = datetime.now() - timedelta(days=days)
@@ -151,6 +157,7 @@ def main(argv=None):
 
     p_report = sub.add_parser("report", help="show totals for the last N days")
     p_report.add_argument("--days", type=int, default=1)
+    p_report.add_argument("--range", dest="window", default=None)
 
     args = parser.parse_args(argv)
     if args.command == "start":
