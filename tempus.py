@@ -137,7 +137,7 @@ def today():
     return report(days=1)
 
 
-def main(argv=None):
+def build_parser():
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -159,6 +159,11 @@ def main(argv=None):
     p_report.add_argument("--days", type=int, default=1)
     p_report.add_argument("--range", dest="window", default=None)
 
+    return parser
+
+
+def main(argv=None):
+    parser = build_parser()
     args = parser.parse_args(argv)
     if args.command == "start":
         return start(args.label)
