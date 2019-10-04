@@ -137,8 +137,12 @@ def today():
     return report(days=1)
 
 
+__version__ = "0.1.0"
+
+
 def build_parser():
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
+    parser.add_argument("--version", action="version", version="tempus " + __version__)
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_start = sub.add_parser("start", help="start a new entry")
