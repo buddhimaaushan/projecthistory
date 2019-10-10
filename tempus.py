@@ -49,7 +49,8 @@ def format_delta(delta):
 def list_entries(limit=10):
     data = load()
     for entry in data["entries"][-limit:]:
-        print("%s  %-30s %s" % (entry["start"], entry["label"], entry["end"] or "running"))
+        length = format_delta(duration(entry))
+        print("%s  %-30s %-10s %s" % (entry["start"], entry["label"], length, entry["end"] or "running"))
     return 0
 
 
