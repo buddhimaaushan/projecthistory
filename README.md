@@ -20,3 +20,8 @@ $ python tempus.py list
 ```
 
 Report totals are rounded down to whole minutes.
+
+
+## Configuration precedence
+
+Most configuration precedence questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. When configuration precedence misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
