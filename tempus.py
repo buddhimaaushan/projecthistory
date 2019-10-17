@@ -80,7 +80,7 @@ def report(days=1):
     for entry in data["entries"]:
         started = parse_time(entry["start"])
         ended = parse_time(entry["end"]) if entry["end"] else datetime.now()
-        if ended < since:
+        if ended < since or started > datetime.now():
             continue
         length = duration(entry)
         total += length
