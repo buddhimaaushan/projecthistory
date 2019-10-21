@@ -35,3 +35,8 @@ When choosing a database location misbehaves, print the resolved settings first 
 ## Working with tags
 
 Working with tags is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most working with tags questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Grouping by project
+
+There is no background process. Everything related to grouping by project happens when a command runs, which keeps the data model predictable. Keep grouping by project in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
