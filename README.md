@@ -40,3 +40,8 @@ Working with tags is handled at the boundary. The CLI validates input before any
 ## Grouping by project
 
 There is no background process. Everything related to grouping by project happens when a command runs, which keeps the data model predictable. Keep grouping by project in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Date ranges in reports
+
+Keep date ranges in reports in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. When date ranges in reports misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
