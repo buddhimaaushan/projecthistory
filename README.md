@@ -45,3 +45,8 @@ There is no background process. Everything related to grouping by project happen
 ## Date ranges in reports
 
 Keep date ranges in reports in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. When date ranges in reports misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Exporting to CSV
+
+There is no background process. Everything related to exporting to csv happens when a command runs, which keeps the data model predictable. Exporting to CSV follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
