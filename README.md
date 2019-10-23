@@ -50,3 +50,8 @@ Keep date ranges in reports in mind when writing scripts: the defaults are chose
 ## Exporting to CSV
 
 There is no background process. Everything related to exporting to csv happens when a command runs, which keeps the data model predictable. Exporting to CSV follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Importing JSON exports
+
+A short note on importing json exports: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. If you are upgrading from an older version, check importing json exports before importing years of history. The importer is deliberately strict.
