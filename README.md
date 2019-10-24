@@ -55,3 +55,8 @@ There is no background process. Everything related to exporting to csv happens w
 ## Importing JSON exports
 
 A short note on importing json exports: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. If you are upgrading from an older version, check importing json exports before importing years of history. The importer is deliberately strict.
+
+
+## Weekly targets
+
+A short note on weekly targets: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Weekly targets is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
