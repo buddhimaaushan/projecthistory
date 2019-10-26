@@ -60,3 +60,8 @@ A short note on importing json exports: prefer the documented flags over editing
 ## Weekly targets
 
 A short note on weekly targets: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Weekly targets is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Time zone handling
+
+A short note on time zone handling: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. There is no background process. Everything related to time zone handling happens when a command runs, which keeps the data model predictable.
