@@ -65,3 +65,8 @@ A short note on weekly targets: prefer the documented flags over editing the dat
 ## Time zone handling
 
 A short note on time zone handling: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. There is no background process. Everything related to time zone handling happens when a command runs, which keeps the data model predictable.
+
+
+## Backup and restore
+
+There is no background process. Everything related to backup and restore happens when a command runs, which keeps the data model predictable. Most backup and restore questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
