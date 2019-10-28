@@ -70,3 +70,8 @@ A short note on time zone handling: prefer the documented flags over editing the
 ## Backup and restore
 
 There is no background process. Everything related to backup and restore happens when a command runs, which keeps the data model predictable. Most backup and restore questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Running on a server
+
+Running on a server is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When running on a server misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
