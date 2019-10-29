@@ -75,3 +75,8 @@ There is no background process. Everything related to backup and restore happens
 ## Running on a server
 
 Running on a server is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When running on a server misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Reverse proxy setup
+
+Reverse proxy setup is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. If you are upgrading from an older version, check reverse proxy setup before importing years of history. The importer is deliberately strict.
