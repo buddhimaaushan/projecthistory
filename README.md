@@ -80,3 +80,8 @@ Running on a server is handled at the boundary. The CLI validates input before a
 ## Reverse proxy setup
 
 Reverse proxy setup is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. If you are upgrading from an older version, check reverse proxy setup before importing years of history. The importer is deliberately strict.
+
+
+## Environment variables
+
+Keep environment variables in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. When environment variables misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
