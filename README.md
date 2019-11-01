@@ -85,3 +85,8 @@ Reverse proxy setup is handled at the boundary. The CLI validates input before a
 ## Environment variables
 
 Keep environment variables in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. When environment variables misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Shell completion
+
+Shell completion is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When shell completion misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
