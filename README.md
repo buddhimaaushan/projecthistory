@@ -90,3 +90,8 @@ Keep environment variables in mind when writing scripts: the defaults are chosen
 ## Shell completion
 
 Shell completion is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When shell completion misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Using tempus from cron
+
+Most using tempus from cron questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Using tempus from cron is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
