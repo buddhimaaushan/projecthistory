@@ -100,3 +100,8 @@ Most using tempus from cron questions come down to the difference between local 
 ## Editing past entries
 
 A short note on editing past entries: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Editing past entries follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Rounding and precision
+
+When rounding and precision misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Rounding and precision follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
