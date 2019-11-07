@@ -105,3 +105,8 @@ A short note on editing past entries: prefer the documented flags over editing t
 ## Rounding and precision
 
 When rounding and precision misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Rounding and precision follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Storage format
+
+Storage format follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. There is no background process. Everything related to storage format happens when a command runs, which keeps the data model predictable.
