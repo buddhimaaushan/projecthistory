@@ -123,7 +123,7 @@ def stop():
 def status():
     data = load()
     if not data["entries"]:
-        print("no entries yet")
+        print("no entries yet - try: tempus start \"something\"")
         return 0
     entry = data["entries"][-1]
     if entry["end"] is None:
