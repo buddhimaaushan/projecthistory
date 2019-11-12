@@ -115,3 +115,8 @@ Storage format follows the same rule everywhere: one canonical representation on
 ## Database migrations
 
 Keep database migrations in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Most database migrations questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Pagination
+
+There is no background process. Everything related to pagination happens when a command runs, which keeps the data model predictable. If you are upgrading from an older version, check pagination before importing years of history. The importer is deliberately strict.
