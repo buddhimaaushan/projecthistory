@@ -186,3 +186,15 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+def week():
+    data = load()
+    totals = {}
+    for entry in data["entries"]:
+        started = parse_time(entry["start"])
+        key = started.strftime("%Y-%m-%d")
+        totals[key] = totals.get(key, timedelta()) + duration(entry)
+    for key in sorted(totals):
+        print("%s  %s" % (key, format_delta(totals[key])))
+    return 0
