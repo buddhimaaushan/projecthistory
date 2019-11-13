@@ -120,3 +120,8 @@ Keep database migrations in mind when writing scripts: the defaults are chosen f
 ## Pagination
 
 There is no background process. Everything related to pagination happens when a command runs, which keeps the data model predictable. If you are upgrading from an older version, check pagination before importing years of history. The importer is deliberately strict.
+
+
+## API authentication
+
+API authentication is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most api authentication questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
