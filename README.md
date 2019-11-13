@@ -35,3 +35,8 @@ Keep choosing a database location in mind when writing scripts: the defaults are
 ## Working with tags
 
 When working with tags misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Working with tags is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Grouping by project
+
+There is no background process. Everything related to grouping by project happens when a command runs, which keeps the data model predictable. Grouping by project is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
