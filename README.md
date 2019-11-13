@@ -30,3 +30,8 @@ Configuration precedence is handled at the boundary. The CLI validates input bef
 ## Choosing a database location
 
 Keep choosing a database location in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. A short note on choosing a database location: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Working with tags
+
+When working with tags misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Working with tags is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
