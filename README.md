@@ -125,3 +125,8 @@ There is no background process. Everything related to pagination happens when a 
 ## API authentication
 
 API authentication is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most api authentication questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Personal access tokens
+
+Most personal access tokens questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. If you are upgrading from an older version, check personal access tokens before importing years of history. The importer is deliberately strict.
