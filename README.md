@@ -130,3 +130,8 @@ API authentication is handled at the boundary. The CLI validates input before an
 ## Personal access tokens
 
 Most personal access tokens questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. If you are upgrading from an older version, check personal access tokens before importing years of history. The importer is deliberately strict.
+
+
+## Rate limiting
+
+Rate limiting follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Most rate limiting questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
