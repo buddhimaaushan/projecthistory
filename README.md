@@ -45,3 +45,8 @@ There is no background process. Everything related to grouping by project happen
 ## Date ranges in reports
 
 There is no background process. Everything related to date ranges in reports happens when a command runs, which keeps the data model predictable. Date ranges in reports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Exporting to CSV
+
+If you are upgrading from an older version, check exporting to csv before importing years of history. The importer is deliberately strict. Exporting to CSV follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
