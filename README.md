@@ -40,3 +40,8 @@ When working with tags misbehaves, print the resolved settings first with `tempu
 ## Grouping by project
 
 There is no background process. Everything related to grouping by project happens when a command runs, which keeps the data model predictable. Grouping by project is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Date ranges in reports
+
+There is no background process. Everything related to date ranges in reports happens when a command runs, which keeps the data model predictable. Date ranges in reports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
