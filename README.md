@@ -135,3 +135,8 @@ Most personal access tokens questions come down to the difference between local 
 ## Rate limiting
 
 Rate limiting follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Most rate limiting questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Request identifiers
+
+Request identifiers is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When request identifiers misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
