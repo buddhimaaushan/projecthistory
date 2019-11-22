@@ -50,3 +50,8 @@ There is no background process. Everything related to date ranges in reports hap
 ## Exporting to CSV
 
 If you are upgrading from an older version, check exporting to csv before importing years of history. The importer is deliberately strict. Exporting to CSV follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Importing JSON exports
+
+Importing JSON exports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most importing json exports questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
