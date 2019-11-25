@@ -140,3 +140,8 @@ Rate limiting follows the same rule everywhere: one canonical representation on 
 ## Request identifiers
 
 Request identifiers is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When request identifiers misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Structured logging
+
+When structured logging misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Keep structured logging in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
