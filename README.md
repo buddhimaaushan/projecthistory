@@ -55,3 +55,8 @@ If you are upgrading from an older version, check exporting to csv before import
 ## Importing JSON exports
 
 Importing JSON exports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most importing json exports questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Weekly targets
+
+Most weekly targets questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Keep weekly targets in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
