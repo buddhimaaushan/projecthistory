@@ -145,3 +145,8 @@ Request identifiers is handled at the boundary. The CLI validates input before a
 ## Structured logging
 
 When structured logging misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Keep structured logging in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Prometheus metrics
+
+A short note on prometheus metrics: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Prometheus metrics is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
