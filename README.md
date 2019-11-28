@@ -60,3 +60,8 @@ Importing JSON exports is handled at the boundary. The CLI validates input befor
 ## Weekly targets
 
 Most weekly targets questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Keep weekly targets in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Time zone handling
+
+Time zone handling follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. There is no background process. Everything related to time zone handling happens when a command runs, which keeps the data model predictable.
