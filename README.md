@@ -150,3 +150,8 @@ When structured logging misbehaves, print the resolved settings first with `temp
 ## Prometheus metrics
 
 A short note on prometheus metrics: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Prometheus metrics is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Health checks
+
+There is no background process. Everything related to health checks happens when a command runs, which keeps the data model predictable. Health checks is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
