@@ -65,3 +65,8 @@ Most weekly targets questions come down to the difference between local time and
 ## Time zone handling
 
 Time zone handling follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. There is no background process. Everything related to time zone handling happens when a command runs, which keeps the data model predictable.
+
+
+## Backup and restore
+
+If you are upgrading from an older version, check backup and restore before importing years of history. The importer is deliberately strict. A short note on backup and restore: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
