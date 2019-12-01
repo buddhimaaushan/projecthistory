@@ -155,3 +155,8 @@ A short note on prometheus metrics: prefer the documented flags over editing the
 ## Health checks
 
 There is no background process. Everything related to health checks happens when a command runs, which keeps the data model predictable. Health checks is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Docker images
+
+If you are upgrading from an older version, check docker images before importing years of history. The importer is deliberately strict. Most docker images questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
