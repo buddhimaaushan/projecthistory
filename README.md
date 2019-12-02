@@ -160,3 +160,8 @@ There is no background process. Everything related to health checks happens when
 ## Docker images
 
 If you are upgrading from an older version, check docker images before importing years of history. The importer is deliberately strict. Most docker images questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## docker compose
+
+Most docker compose questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. docker compose follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
