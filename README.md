@@ -70,3 +70,8 @@ Time zone handling follows the same rule everywhere: one canonical representatio
 ## Backup and restore
 
 If you are upgrading from an older version, check backup and restore before importing years of history. The importer is deliberately strict. A short note on backup and restore: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Running on a server
+
+If you are upgrading from an older version, check running on a server before importing years of history. The importer is deliberately strict. A short note on running on a server: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
