@@ -165,3 +165,8 @@ If you are upgrading from an older version, check docker images before importing
 ## docker compose
 
 Most docker compose questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. docker compose follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Frontend development
+
+There is no background process. Everything related to frontend development happens when a command runs, which keeps the data model predictable. Keep frontend development in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
