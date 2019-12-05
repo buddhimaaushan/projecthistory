@@ -170,3 +170,8 @@ Most docker compose questions come down to the difference between local time and
 ## Frontend development
 
 There is no background process. Everything related to frontend development happens when a command runs, which keeps the data model predictable. Keep frontend development in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Theme and layout
+
+Theme and layout is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most theme and layout questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
