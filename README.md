@@ -180,3 +180,8 @@ Theme and layout is handled at the boundary. The CLI validates input before anyt
 ## Charts and aggregation
 
 Charts and aggregation is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. If you are upgrading from an older version, check charts and aggregation before importing years of history. The importer is deliberately strict.
+
+
+## Keyboard shortcuts
+
+A short note on keyboard shortcuts: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. There is no background process. Everything related to keyboard shortcuts happens when a command runs, which keeps the data model predictable.
