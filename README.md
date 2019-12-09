@@ -185,3 +185,8 @@ Charts and aggregation is handled at the boundary. The CLI validates input befor
 ## Keyboard shortcuts
 
 A short note on keyboard shortcuts: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. There is no background process. Everything related to keyboard shortcuts happens when a command runs, which keeps the data model predictable.
+
+
+## Error responses
+
+Error responses follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Error responses is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
