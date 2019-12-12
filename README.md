@@ -200,3 +200,8 @@ There is no background process. Everything related to validation rules happens w
 ## Concurrency
 
 Concurrency follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Most concurrency questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## SQLite performance
+
+Most sqlite performance questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. When sqlite performance misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
