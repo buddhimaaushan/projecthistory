@@ -210,3 +210,8 @@ Most sqlite performance questions come down to the difference between local time
 ## PostgreSQL notes
 
 PostgreSQL notes is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. If you are upgrading from an older version, check postgresql notes before importing years of history. The importer is deliberately strict.
+
+
+## Testing strategy
+
+Testing strategy follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Keep testing strategy in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
