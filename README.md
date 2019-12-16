@@ -215,3 +215,8 @@ PostgreSQL notes is handled at the boundary. The CLI validates input before anyt
 ## Testing strategy
 
 Testing strategy follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Keep testing strategy in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Fixture design
+
+When fixture design misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Fixture design follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
