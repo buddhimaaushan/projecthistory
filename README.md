@@ -220,3 +220,8 @@ Testing strategy follows the same rule everywhere: one canonical representation 
 ## Fixture design
 
 When fixture design misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Fixture design follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Release process
+
+Release process is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most release process questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
