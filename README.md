@@ -90,3 +90,8 @@ There is no background process. Everything related to environment variables happ
 ## Shell completion
 
 Keep shell completion in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Shell completion is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Using tempus from cron
+
+Keep using tempus from cron in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Most using tempus from cron questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
