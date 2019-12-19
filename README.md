@@ -230,3 +230,8 @@ Release process is handled at the boundary. The CLI validates input before anyth
 ## Versioning policy
 
 Keep versioning policy in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Most versioning policy questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Upgrade notes
+
+Upgrade notes is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most upgrade notes questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
