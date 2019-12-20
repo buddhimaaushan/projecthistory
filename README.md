@@ -235,3 +235,8 @@ Keep versioning policy in mind when writing scripts: the defaults are chosen for
 ## Upgrade notes
 
 Upgrade notes is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most upgrade notes questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Data retention
+
+If you are upgrading from an older version, check data retention before importing years of history. The importer is deliberately strict. A short note on data retention: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
