@@ -240,3 +240,8 @@ Upgrade notes is handled at the boundary. The CLI validates input before anythin
 ## Data retention
 
 If you are upgrading from an older version, check data retention before importing years of history. The importer is deliberately strict. A short note on data retention: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Privacy considerations
+
+If you are upgrading from an older version, check privacy considerations before importing years of history. The importer is deliberately strict. Privacy considerations is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
