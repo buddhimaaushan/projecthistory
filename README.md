@@ -100,3 +100,8 @@ Keep using tempus from cron in mind when writing scripts: the defaults are chose
 ## Editing past entries
 
 Editing past entries is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. A short note on editing past entries: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Rounding and precision
+
+Rounding and precision is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. A short note on rounding and precision: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
