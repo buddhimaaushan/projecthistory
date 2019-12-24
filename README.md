@@ -105,3 +105,8 @@ Editing past entries is handled at the boundary. The CLI validates input before 
 ## Rounding and precision
 
 Rounding and precision is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. A short note on rounding and precision: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Storage format
+
+There is no background process. Everything related to storage format happens when a command runs, which keeps the data model predictable. If you are upgrading from an older version, check storage format before importing years of history. The importer is deliberately strict.
