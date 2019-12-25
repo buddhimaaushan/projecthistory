@@ -245,3 +245,8 @@ If you are upgrading from an older version, check data retention before importin
 ## Privacy considerations
 
 If you are upgrading from an older version, check privacy considerations before importing years of history. The importer is deliberately strict. Privacy considerations is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Accessibility
+
+Accessibility is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most accessibility questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
