@@ -75,3 +75,73 @@ class JsonStorage:
         rows = self._read()
         del rows[entry_id]
         self._write(rows)
+
+
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS entries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    label TEXT NOT NULL,
+    project TEXT,
+    tags TEXT NOT NULL DEFAULT '',
+    start TEXT NOT NULL,
+    end TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_entries_start ON entries(start);
+"""
+
+
+class SqliteStorage:
+    def __init__(self, path):
+        import sqlite3
+
+        self.connection = sqlite3.connect(path)
+        self.connection.row_factory = sqlite3.Row
+        self.connection.executescript(SCHEMA)
+
+    def _row_to_entry(self, row):
+        return Entry(
+            id=row["id"],
+            label=row["label"],
+            project=row["project"],
+            tags=[tag for tag in row["tags"].split(",") if tag],
+            start=_parse(row["start"]),
+            end=_parse(row["end"]),
+        )
+
+    def all(self):
+        rows = self.connection.execute("SELECT * FROM entries ORDER BY start").fetchall()
+        return [self._row_to_entry(row) for row in rows]
+
+    def add(self, entry):
+        cursor = self.connection.execute(
+            "INSERT INTO entries (label, project, tags, start, end) VALUES (?, ?, ?, ?, ?)",
+            (
+                entry.label,
+                entry.project,
+                ",".join(entry.tags),
+                entry.start.isoformat(timespec="seconds"),
+                entry.end.isoformat(timespec="seconds") if entry.end else None,
+            ),
+        )
+        self.connection.commit()
+        entry.id = cursor.lastrowid
+        return entry
+
+    def update(self, entry):
+        self.connection.execute(
+            "UPDATE entries SET label = ?, project = ?, tags = ?, start = ?, end = ? WHERE id = ?",
+            (
+                entry.label,
+                entry.project,
+                ",".join(entry.tags),
+                entry.start.isoformat(timespec="seconds"),
+                entry.end.isoformat(timespec="seconds") if entry.end else None,
+                entry.id,
+            ),
+        )
+        self.connection.commit()
+        return entry
+
+    def delete(self, entry_id):
+        self.connection.execute("DELETE FROM entries WHERE id = ?", (entry_id,))
+        self.connection.commit()
