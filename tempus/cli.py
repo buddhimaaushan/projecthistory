@@ -7,13 +7,27 @@ from datetime import datetime, timedelta
 
 from . import __version__
 from .models import Entry
-from .storage import JsonStorage
+from .storage import JsonStorage, SqliteStorage
 
 DEFAULT_PATH = os.environ.get("TEMPUS_FILE", os.path.expanduser("~/.tempus.json"))
+DEFAULT_DB = os.environ.get("TEMPUS_DB", os.path.expanduser("~/.tempus.db"))
 
 
 def get_storage():
+    if os.path.exists(DEFAULT_DB):
+        return SqliteStorage(DEFAULT_DB)
     return JsonStorage(DEFAULT_PATH)
+
+
+def migrate():
+    source = JsonStorage(DEFAULT_PATH)
+    target = SqliteStorage(DEFAULT_DB)
+    count = 0
+    for entry in source.all():
+        target.add(entry)
+        count += 1
+    print("migrated %d entries to %s" % (count, DEFAULT_DB))
+    return 0
 
 
 def format_delta(delta):
@@ -134,6 +148,8 @@ def build_parser():
     p_delete = sub.add_parser("delete", help="remove an entry by index")
     p_delete.add_argument("index", type=int)
 
+    sub.add_parser("migrate", help="move entries from JSON to SQLite")
+
     p_report = sub.add_parser("report", help="show totals for the last N days")
     p_report.add_argument("--days", type=int, default=1)
 
@@ -151,6 +167,7 @@ def main(argv=None):
         "delete": lambda: delete(args.index),
         "report": lambda: report(args.days),
         "today": today,
+        "migrate": migrate,
     }
     return handlers[args.command]()
 
