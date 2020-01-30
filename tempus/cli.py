@@ -134,6 +134,14 @@ def week():
     return 0
 
 
+
+
+def show_config():
+    config = Config.load()
+    print("database = %s" % config.database)
+    print("default_project = %s" % config.default_project)
+    print("week_starts_on = %s" % config.week_starts_on)
+    return 0
 def build_parser():
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
     parser.add_argument("--version", action="version", version="tempus " + __version__)
@@ -151,6 +159,7 @@ def build_parser():
     p_delete.add_argument("index", type=int)
 
     sub.add_parser("migrate", help="move entries from JSON to SQLite")
+    sub.add_parser("config", help="print the resolved configuration")
 
     p_report = sub.add_parser("report", help="show totals for the last N days")
     p_report.add_argument("--days", type=int, default=1)
@@ -170,6 +179,7 @@ def main(argv=None):
         "report": lambda: report(args.days),
         "today": today,
         "migrate": migrate,
+        "config": show_config,
     }
     return handlers[args.command]()
 
