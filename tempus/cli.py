@@ -6,6 +6,7 @@ import sys
 from datetime import datetime, timedelta
 
 from . import __version__
+from .config import Config
 from .models import Entry
 from .storage import JsonStorage, SqliteStorage
 
@@ -14,8 +15,9 @@ DEFAULT_DB = os.environ.get("TEMPUS_DB", os.path.expanduser("~/.tempus.db"))
 
 
 def get_storage():
-    if os.path.exists(DEFAULT_DB):
-        return SqliteStorage(DEFAULT_DB)
+    config = Config.load()
+    if os.path.exists(config.database):
+        return SqliteStorage(config.database)
     return JsonStorage(DEFAULT_PATH)
 
 
