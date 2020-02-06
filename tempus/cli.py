@@ -40,13 +40,20 @@ def format_delta(delta):
     return "%dm" % minutes
 
 
-def start(label):
+def start(label, tags=None, project=None):
     storage = get_storage()
     entries = storage.all()
     if entries and entries[-1].is_running:
         print("already tracking: %s" % entries[-1].label)
         return 1
-    storage.add(Entry(label=label, start=datetime.now()))
+    storage.add(
+        Entry(
+            label=label,
+            project=project,
+            tags=[tag.strip() for tag in (tags or "").split(",") if tag.strip()],
+            start=datetime.now(),
+        )
+    )
     print("started: %s" % label)
     return 0
 
@@ -149,6 +156,8 @@ def build_parser():
 
     p_start = sub.add_parser("start", help="start a new entry")
     p_start.add_argument("label")
+    p_start.add_argument("--tags", default="")
+    p_start.add_argument("--project", default=None)
 
     sub.add_parser("stop", help="stop the running entry")
     sub.add_parser("status", help="show the running entry")
@@ -171,7 +180,7 @@ def main(argv=None):
     parser = build_parser()
     args = parser.parse_args(argv)
     handlers = {
-        "start": lambda: start(args.label),
+        "start": lambda: start(args.label, args.tags, args.project),
         "stop": stop,
         "status": status,
         "list": list_entries,

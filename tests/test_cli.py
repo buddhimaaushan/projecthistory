@@ -36,3 +36,9 @@ def test_report_totals(storage, capsys):
     store.add(Entry(label="reading", start=datetime.now(), end=datetime.now()))
     assert cli.report(1) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_start_records_tags(storage):
+    cli.start("reading", tags="books, evening")
+    entry = cli.get_storage().all()[0]
+    assert entry.tags == ["books", "evening"]
