@@ -9,6 +9,7 @@ from . import __version__
 from .config import Config
 from .models import Entry
 from .storage import JsonStorage, SqliteStorage
+from .utils import format_duration, parse_duration
 
 DEFAULT_PATH = os.environ.get("TEMPUS_FILE", os.path.expanduser("~/.tempus.json"))
 DEFAULT_DB = os.environ.get("TEMPUS_DB", os.path.expanduser("~/.tempus.db"))
@@ -166,6 +167,14 @@ def edit(index, label=None, project=None):
     storage.update(entry)
     print("updated entry %d" % index)
     return 0
+
+
+def add_manual(label, duration, start=None):
+    storage = get_storage()
+    started = datetime.fromisoformat(start) if start else datetime.now() - parse_duration(duration)
+    storage.add(Entry(label=label, start=started, end=started + parse_duration(duration)))
+    print("added: %s (%s)" % (label, duration))
+    return 0
 def build_parser():
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
     parser.add_argument("--version", action="version", version="tempus " + __version__)
@@ -189,6 +198,11 @@ def build_parser():
     p_edit.add_argument("--label")
     p_edit.add_argument("--project")
 
+    p_add = sub.add_parser("add", help="record an entry after the fact")
+    p_add.add_argument("label")
+    p_add.add_argument("--duration", required=True)
+    p_add.add_argument("--at", default=None)
+
     sub.add_parser("migrate", help="move entries from JSON to SQLite")
     sub.add_parser("config", help="print the resolved configuration")
 
@@ -210,6 +224,7 @@ def main(argv=None):
         "edit": lambda: edit(args.index, args.label, args.project),
         "report": lambda: report(args.days),
         "today": today,
+        "add": lambda: add_manual(args.label, args.duration, args.at),
         "migrate": migrate,
         "config": show_config,
     }
