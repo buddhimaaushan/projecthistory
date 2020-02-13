@@ -110,18 +110,26 @@ def delete(index):
     return 0
 
 
-def report(days=1):
+def report(days=1, by_project=False):
     entries = get_storage().all()
     now = datetime.now()
     since = now - timedelta(days=days)
     total = timedelta()
+    projects = {}
     for entry in entries:
         if entry.end is not None and entry.end < since:
             continue
         if entry.start > now:
             continue
         total += entry.duration
-        print("%-30s %s" % (entry.label, format_delta(entry.duration)))
+        if by_project:
+            name = entry.project or "unassigned"
+            projects[name] = projects.get(name, timedelta()) + entry.duration
+        else:
+            print("%-30s %s" % (entry.label, format_delta(entry.duration)))
+    if by_project:
+        for name in sorted(projects):
+            print("%-30s %s" % (name, format_delta(projects[name])))
     print("-" * 40)
     print("%-30s %s" % ("total", format_delta(total)))
     return 0
@@ -208,6 +216,7 @@ def build_parser():
 
     p_report = sub.add_parser("report", help="show totals for the last N days")
     p_report.add_argument("--days", type=int, default=1)
+    p_report.add_argument("--by-project", action="store_true")
 
     return parser
 
@@ -222,7 +231,7 @@ def main(argv=None):
         "list": list_entries,
         "delete": lambda: delete(args.index),
         "edit": lambda: edit(args.index, args.label, args.project),
-        "report": lambda: report(args.days),
+        "report": lambda: report(args.days, args.by_project),
         "today": today,
         "add": lambda: add_manual(args.label, args.duration, args.at),
         "migrate": migrate,
