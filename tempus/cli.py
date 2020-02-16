@@ -34,11 +34,7 @@ def migrate():
 
 
 def format_delta(delta):
-    minutes = int(delta.total_seconds() // 60)
-    hours, minutes = divmod(minutes, 60)
-    if hours:
-        return "%dh %dm" % (hours, minutes)
-    return "%dm" % minutes
+    return format_duration(delta.total_seconds())
 
 
 def start(label, tags=None, project=None):
