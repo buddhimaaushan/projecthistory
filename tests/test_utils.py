@@ -1,0 +1,20 @@
+import pytest
+
+from tempus.utils import format_duration, parse_duration
+
+
+@pytest.mark.parametrize(
+    "value,seconds",
+    [("45m", 2700), ("2h", 7200), ("1h30m", 5400), ("0m", 0)],
+)
+def test_parse_duration(value, seconds):
+    assert parse_duration(value).total_seconds() == seconds
+
+
+def test_parse_duration_rejects_garbage():
+    with pytest.raises(ValueError):
+        parse_duration("soon")
+
+
+def test_format_duration():
+    assert format_duration(5445) == "1h 30m"
