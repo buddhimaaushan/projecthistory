@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="tempus-cli",
-    version="0.2.0",
+    version="0.3.0",
     description="A small time tracker for the terminal",
     author="Buddhima Aushan",
     license="MIT",
