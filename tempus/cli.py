@@ -149,6 +149,23 @@ def show_config():
     print("default_project = %s" % config.default_project)
     print("week_starts_on = %s" % config.week_starts_on)
     return 0
+
+
+def edit(index, label=None, project=None):
+    storage = get_storage()
+    entries = storage.all()
+    try:
+        entry = entries[index]
+    except IndexError:
+        print("no entry at index %d" % index)
+        return 1
+    if label:
+        entry.label = label
+    if project is not None:
+        entry.project = project
+    storage.update(entry)
+    print("updated entry %d" % index)
+    return 0
 def build_parser():
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
     parser.add_argument("--version", action="version", version="tempus " + __version__)
@@ -166,6 +183,11 @@ def build_parser():
 
     p_delete = sub.add_parser("delete", help="remove an entry by index")
     p_delete.add_argument("index", type=int)
+
+    p_edit = sub.add_parser("edit", help="change an existing entry")
+    p_edit.add_argument("index", type=int)
+    p_edit.add_argument("--label")
+    p_edit.add_argument("--project")
 
     sub.add_parser("migrate", help="move entries from JSON to SQLite")
     sub.add_parser("config", help="print the resolved configuration")
@@ -185,6 +207,7 @@ def main(argv=None):
         "status": status,
         "list": list_entries,
         "delete": lambda: delete(args.index),
+        "edit": lambda: edit(args.index, args.label, args.project),
         "report": lambda: report(args.days),
         "today": today,
         "migrate": migrate,
