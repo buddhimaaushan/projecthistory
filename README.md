@@ -12,6 +12,14 @@ $ python tempus.py status
 
 Data is stored as JSON in `~/.tempus.json`.
 
+## Installation
+
+```
+$ git clone https://github.com/buddhimaaushan/tempus.git
+$ cd tempus
+$ pip install -e .
+```
+
 ## Reports
 
 ```
