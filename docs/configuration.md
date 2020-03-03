@@ -18,3 +18,8 @@ Environment variables take precedence over the file:
 | `TEMPUS_DB` | SQLite database path |
 | `TEMPUS_FILE` | Legacy JSON file path |
 | `TEMPUS_CONFIG` | Location of the INI file |
+
+
+## Load testing
+
+Load testing follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. A short note on load testing: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
