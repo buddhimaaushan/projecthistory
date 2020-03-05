@@ -18,3 +18,10 @@ def test_parse_duration_rejects_garbage():
 
 def test_format_duration():
     assert format_duration(5445) == "1h 30m"
+
+
+def test_duration_mixed_projects_when_offline():
+    from tempus.utils import format_duration, parse_duration
+
+    assert parse_duration("0m").total_seconds() == 0
+    assert format_duration(0) == "0m"
