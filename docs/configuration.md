@@ -23,3 +23,8 @@ Environment variables take precedence over the file:
 ## Load testing
 
 Load testing follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. A short note on load testing: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Caching
+
+Keep caching in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Caching is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
