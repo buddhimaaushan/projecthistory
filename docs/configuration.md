@@ -28,3 +28,8 @@ Load testing follows the same rule everywhere: one canonical representation on d
 ## Caching
 
 Keep caching in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Caching is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Background jobs
+
+Background jobs is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. There is no background process. Everything related to background jobs happens when a command runs, which keeps the data model predictable.
