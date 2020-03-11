@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Mention the JSON importer in the upgrade guide.
+
 ## 0.3.0
 
 - Manual entries with `add --duration`.
