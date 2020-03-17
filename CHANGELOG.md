@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note that --days accepts zero.
 - Mention the JSON importer in the upgrade guide.
 
 ## 0.3.0
