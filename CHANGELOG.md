@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Clarify the exit code on user errors.
 - Note that --days accepts zero.
 - Mention the JSON importer in the upgrade guide.
 
