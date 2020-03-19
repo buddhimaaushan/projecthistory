@@ -18,3 +18,8 @@ Environment variables take precedence over the file:
 | `TEMPUS_DB` | SQLite database path |
 | `TEMPUS_FILE` | Legacy JSON file path |
 | `TEMPUS_CONFIG` | Location of the INI file |
+
+
+## Database migrations
+
+There is no background process. Everything related to database migrations happens when a command runs, which keeps the data model predictable. Most database migrations questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
