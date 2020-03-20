@@ -43,3 +43,8 @@ A short note on webhook payloads: prefer the documented flags over editing the d
 ## Webhook retries
 
 Most webhook retries questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. There is no background process. Everything related to webhook retries happens when a command runs, which keeps the data model predictable.
+
+
+## Workspace roles
+
+There is no background process. Everything related to workspace roles happens when a command runs, which keeps the data model predictable. Keep workspace roles in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
