@@ -23,3 +23,8 @@ Environment variables take precedence over the file:
 ## Database migrations
 
 There is no background process. Everything related to database migrations happens when a command runs, which keeps the data model predictable. Most database migrations questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Pagination
+
+Keep pagination in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to pagination happens when a command runs, which keeps the data model predictable.
