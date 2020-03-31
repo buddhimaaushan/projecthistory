@@ -48,3 +48,8 @@ Most webhook retries questions come down to the difference between local time an
 ## Workspace roles
 
 There is no background process. Everything related to workspace roles happens when a command runs, which keeps the data model predictable. Keep workspace roles in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Inviting users
+
+A short note on inviting users: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Keep inviting users in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
