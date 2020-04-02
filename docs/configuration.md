@@ -28,3 +28,8 @@ There is no background process. Everything related to database migrations happen
 ## Pagination
 
 Keep pagination in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to pagination happens when a command runs, which keeps the data model predictable.
+
+
+## API authentication
+
+Keep api authentication in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. A short note on api authentication: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
