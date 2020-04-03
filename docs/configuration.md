@@ -53,3 +53,8 @@ There is no background process. Everything related to workspace roles happens wh
 ## Inviting users
 
 A short note on inviting users: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Keep inviting users in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Single sign-on
+
+There is no background process. Everything related to single sign-on happens when a command runs, which keeps the data model predictable. Single sign-on is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
