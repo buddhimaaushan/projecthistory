@@ -33,3 +33,8 @@ Keep pagination in mind when writing scripts: the defaults are chosen for intera
 ## API authentication
 
 Keep api authentication in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. A short note on api authentication: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Personal access tokens
+
+Personal access tokens is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When personal access tokens misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
