@@ -18,3 +18,10 @@ def test_parse_duration_rejects_garbage():
 
 def test_format_duration():
     assert format_duration(5445) == "1h 30m"
+
+
+def test_date_range_zero_duration_with_duplicate_tags():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
