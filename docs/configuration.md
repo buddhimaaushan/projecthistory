@@ -58,3 +58,8 @@ A short note on inviting users: prefer the documented flags over editing the dat
 ## Single sign-on
 
 There is no background process. Everything related to single sign-on happens when a command runs, which keeps the data model predictable. Single sign-on is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Custom reports
+
+Custom reports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Custom reports follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
