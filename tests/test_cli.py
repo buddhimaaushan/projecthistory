@@ -42,3 +42,10 @@ def test_start_records_tags(storage):
     cli.start("reading", tags="books, evening")
     entry = cli.get_storage().all()[0]
     assert entry.tags == ["books", "evening"]
+
+
+def test_cli_pagination_after_a_reopen(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
