@@ -63,3 +63,8 @@ There is no background process. Everything related to single sign-on happens whe
 ## Custom reports
 
 Custom reports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Custom reports follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Keyboard navigation
+
+Keyboard navigation follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. If you are upgrading from an older version, check keyboard navigation before importing years of history. The importer is deliberately strict.
