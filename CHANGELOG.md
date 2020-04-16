@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add the missing weekly target flag.
 - Describe the new summary output.
 - Clarify the exit code on user errors.
 - Note that --days accepts zero.
