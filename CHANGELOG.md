@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the stricter validation on start.
 - Document the new report filters.
 - Call out the changed default port.
 - Record the removal of the legacy flag.
