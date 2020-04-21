@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Call out the changed default port.
 - Record the removal of the legacy flag.
 - Add the missing weekly target flag.
 - Describe the new summary output.
