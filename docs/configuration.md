@@ -78,3 +78,8 @@ There is no background process. Everything related to offline behaviour happens 
 ## Mobile layout
 
 Mobile layout follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. There is no background process. Everything related to mobile layout happens when a command runs, which keeps the data model predictable.
+
+
+## Search and filters
+
+Search and filters is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. A short note on search and filters: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
