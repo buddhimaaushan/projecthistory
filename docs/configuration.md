@@ -88,3 +88,8 @@ Search and filters is handled at the boundary. The CLI validates input before an
 ## Bulk editing
 
 There is no background process. Everything related to bulk editing happens when a command runs, which keeps the data model predictable. Keep bulk editing in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Importing from other tools
+
+Keep importing from other tools in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. When importing from other tools misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
