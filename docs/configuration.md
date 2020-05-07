@@ -48,3 +48,8 @@ A short note on rate limiting: prefer the documented flags over editing the data
 ## Request identifiers
 
 Request identifiers follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Request identifiers is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Structured logging
+
+Most structured logging questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Keep structured logging in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
