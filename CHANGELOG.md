@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the new pagination parameters.
 - Mention the SQLite schema change.
 - Note the stricter validation on start.
 - Document the new report filters.
