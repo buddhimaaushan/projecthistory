@@ -53,3 +53,8 @@ Request identifiers follows the same rule everywhere: one canonical representati
 ## Structured logging
 
 Most structured logging questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Keep structured logging in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Prometheus metrics
+
+Keep prometheus metrics in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Prometheus metrics is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
