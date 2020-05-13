@@ -93,3 +93,8 @@ There is no background process. Everything related to bulk editing happens when 
 ## Importing from other tools
 
 Keep importing from other tools in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. When importing from other tools misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Data model
+
+Data model follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. There is no background process. Everything related to data model happens when a command runs, which keeps the data model predictable.
