@@ -58,3 +58,8 @@ Most structured logging questions come down to the difference between local time
 ## Prometheus metrics
 
 Keep prometheus metrics in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Prometheus metrics is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Health checks
+
+Health checks follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. A short note on health checks: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
