@@ -53,3 +53,10 @@ def test_date_range_timezone_for_a_new_account():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_long_running_with_pagination():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
