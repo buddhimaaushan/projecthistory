@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the minimum Python version.
 - Record the docker image rename.
 - Add a note about token expiry.
 - Describe the new pagination parameters.
