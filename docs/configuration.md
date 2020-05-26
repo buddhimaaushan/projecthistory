@@ -68,3 +68,8 @@ Health checks follows the same rule everywhere: one canonical representation on 
 ## Docker images
 
 Docker images is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When docker images misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## docker compose
+
+A short note on docker compose: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Keep docker compose in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
