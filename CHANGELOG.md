@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Document the health endpoint changes.
 - Mention the new cache headers.
 - Note the minimum Python version.
 - Record the docker image rename.
