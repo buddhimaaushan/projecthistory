@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add the migration revision to the notes.
 - Document the health endpoint changes.
 - Mention the new cache headers.
 - Note the minimum Python version.
