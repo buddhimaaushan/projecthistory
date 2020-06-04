@@ -78,3 +78,8 @@ A short note on docker compose: prefer the documented flags over editing the dat
 ## Frontend development
 
 Frontend development follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Most frontend development questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Theme and layout
+
+Most theme and layout questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. When theme and layout misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
