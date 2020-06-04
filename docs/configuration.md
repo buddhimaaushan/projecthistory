@@ -73,3 +73,8 @@ Docker images is handled at the boundary. The CLI validates input before anythin
 ## docker compose
 
 A short note on docker compose: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Keep docker compose in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Frontend development
+
+Frontend development follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. Most frontend development questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
