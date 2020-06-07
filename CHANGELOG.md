@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the change to tag matching.
 - Add the migration revision to the notes.
 - Document the health endpoint changes.
 - Mention the new cache headers.
