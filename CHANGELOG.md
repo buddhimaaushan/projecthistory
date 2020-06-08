@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the timezone fix in reports.
 - Describe the change to tag matching.
 - Add the migration revision to the notes.
 - Document the health endpoint changes.
