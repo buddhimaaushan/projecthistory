@@ -103,3 +103,8 @@ Data model follows the same rule everywhere: one canonical representation on dis
 ## Request lifecycle
 
 Request lifecycle is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When request lifecycle misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Project structure
+
+If you are upgrading from an older version, check project structure before importing years of history. The importer is deliberately strict. There is no background process. Everything related to project structure happens when a command runs, which keeps the data model predictable.
