@@ -83,3 +83,8 @@ Frontend development follows the same rule everywhere: one canonical representat
 ## Theme and layout
 
 Most theme and layout questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. When theme and layout misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Charts and aggregation
+
+Charts and aggregation is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. There is no background process. Everything related to charts and aggregation happens when a command runs, which keeps the data model predictable.
