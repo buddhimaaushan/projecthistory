@@ -88,3 +88,8 @@ Most theme and layout questions come down to the difference between local time a
 ## Charts and aggregation
 
 Charts and aggregation is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. There is no background process. Everything related to charts and aggregation happens when a command runs, which keeps the data model predictable.
+
+
+## Keyboard shortcuts
+
+Keep keyboard shortcuts in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to keyboard shortcuts happens when a command runs, which keeps the data model predictable.
