@@ -108,3 +108,8 @@ Request lifecycle is handled at the boundary. The CLI validates input before any
 ## Project structure
 
 If you are upgrading from an older version, check project structure before importing years of history. The importer is deliberately strict. There is no background process. Everything related to project structure happens when a command runs, which keeps the data model predictable.
+
+
+## Dependency policy
+
+Keep dependency policy in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to dependency policy happens when a command runs, which keeps the data model predictable.
