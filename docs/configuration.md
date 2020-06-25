@@ -113,3 +113,8 @@ If you are upgrading from an older version, check project structure before impor
 ## Dependency policy
 
 Keep dependency policy in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to dependency policy happens when a command runs, which keeps the data model predictable.
+
+
+## Security headers
+
+Security headers is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When security headers misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
