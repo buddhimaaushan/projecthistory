@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the rate limit headers.
 - Document the new CORS defaults.
 - Mention the faster entry listing.
 - Record the deprecation of /api/v1/reports.
