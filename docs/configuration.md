@@ -123,3 +123,8 @@ Security headers is handled at the boundary. The CLI validates input before anyt
 ## CORS
 
 If you are upgrading from an older version, check cors before importing years of history. The importer is deliberately strict. CORS follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## TLS termination
+
+If you are upgrading from an older version, check tls termination before importing years of history. The importer is deliberately strict. TLS termination follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
