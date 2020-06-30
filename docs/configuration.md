@@ -128,3 +128,8 @@ If you are upgrading from an older version, check cors before importing years of
 ## TLS termination
 
 If you are upgrading from an older version, check tls termination before importing years of history. The importer is deliberately strict. TLS termination follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Monitoring alerts
+
+A short note on monitoring alerts: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Keep monitoring alerts in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
