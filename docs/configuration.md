@@ -133,3 +133,8 @@ If you are upgrading from an older version, check tls termination before importi
 ## Monitoring alerts
 
 A short note on monitoring alerts: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Keep monitoring alerts in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Troubleshooting the installer
+
+When troubleshooting the installer misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. A short note on troubleshooting the installer: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
