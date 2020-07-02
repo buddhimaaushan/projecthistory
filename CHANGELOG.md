@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the new backup script.
 - Describe the change to soft deletes.
 - Add the request id to the log notes.
 - Note the rate limit headers.
