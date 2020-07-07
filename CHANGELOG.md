@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Record the switch to ruff.
 - Mention the reduced image size.
 - Note the new backup script.
 - Describe the change to soft deletes.
