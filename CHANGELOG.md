@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the workspace invite flow.
 - Note the updated node requirement.
 - Record the switch to ruff.
 - Mention the reduced image size.
