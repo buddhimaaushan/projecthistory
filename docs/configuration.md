@@ -93,3 +93,8 @@ Charts and aggregation is handled at the boundary. The CLI validates input befor
 ## Keyboard shortcuts
 
 Keep keyboard shortcuts in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to keyboard shortcuts happens when a command runs, which keeps the data model predictable.
+
+
+## Error responses
+
+There is no background process. Everything related to error responses happens when a command runs, which keeps the data model predictable. Keep error responses in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
