@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the offline warning banner.
 - Document the chart grouping options.
 - Mention the new keyboard shortcut.
 - Add a note about webhook ordering.
