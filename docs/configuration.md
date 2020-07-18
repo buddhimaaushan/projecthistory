@@ -98,3 +98,8 @@ Keep keyboard shortcuts in mind when writing scripts: the defaults are chosen fo
 ## Error responses
 
 There is no background process. Everything related to error responses happens when a command runs, which keeps the data model predictable. Keep error responses in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Validation rules
+
+Most validation rules questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Keep validation rules in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
