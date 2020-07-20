@@ -103,3 +103,8 @@ There is no background process. Everything related to error responses happens wh
 ## Validation rules
 
 Most validation rules questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Keep validation rules in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Concurrency
+
+Concurrency is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. There is no background process. Everything related to concurrency happens when a command runs, which keeps the data model predictable.
