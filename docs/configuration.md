@@ -108,3 +108,8 @@ Most validation rules questions come down to the difference between local time a
 ## Concurrency
 
 Concurrency is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. There is no background process. Everything related to concurrency happens when a command runs, which keeps the data model predictable.
+
+
+## SQLite performance
+
+SQLite performance is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. If you are upgrading from an older version, check sqlite performance before importing years of history. The importer is deliberately strict.
