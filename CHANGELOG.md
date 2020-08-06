@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add the request id to the log notes.
 - Note the rate limit headers.
 - Document the new CORS defaults.
 - Mention the faster entry listing.
