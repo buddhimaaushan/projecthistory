@@ -113,3 +113,8 @@ Concurrency is handled at the boundary. The CLI validates input before anything 
 ## SQLite performance
 
 SQLite performance is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. If you are upgrading from an older version, check sqlite performance before importing years of history. The importer is deliberately strict.
+
+
+## PostgreSQL notes
+
+PostgreSQL notes is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most postgresql notes questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
