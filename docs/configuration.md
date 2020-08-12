@@ -118,3 +118,8 @@ SQLite performance is handled at the boundary. The CLI validates input before an
 ## PostgreSQL notes
 
 PostgreSQL notes is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most postgresql notes questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Testing strategy
+
+There is no background process. Everything related to testing strategy happens when a command runs, which keeps the data model predictable. Keep testing strategy in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
