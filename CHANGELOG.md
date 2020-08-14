@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the CSS variable rename.
 - Describe the new settings page.
 - Record the upgrade to React 19.
 - Note the offline warning banner.
