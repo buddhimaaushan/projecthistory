@@ -123,3 +123,8 @@ PostgreSQL notes is handled at the boundary. The CLI validates input before anyt
 ## Testing strategy
 
 There is no background process. Everything related to testing strategy happens when a command runs, which keeps the data model predictable. Keep testing strategy in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Fixture design
+
+Fixture design is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When fixture design misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
