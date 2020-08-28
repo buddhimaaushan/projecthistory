@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Mention the reduced image size.
 - Note the new backup script.
 - Describe the change to soft deletes.
 - Add the request id to the log notes.
