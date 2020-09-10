@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add a note about webhook ordering.
 - Describe the workspace invite flow.
 - Note the updated node requirement.
 - Record the switch to ruff.
