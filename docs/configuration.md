@@ -128,3 +128,8 @@ There is no background process. Everything related to testing strategy happens w
 ## Fixture design
 
 Fixture design is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. When fixture design misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Release process
+
+Release process follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. A short note on release process: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
