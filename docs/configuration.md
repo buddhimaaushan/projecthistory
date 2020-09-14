@@ -133,3 +133,8 @@ Fixture design is handled at the boundary. The CLI validates input before anythi
 ## Release process
 
 Release process follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. A short note on release process: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Versioning policy
+
+Keep versioning policy in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Versioning policy is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
