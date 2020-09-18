@@ -143,3 +143,8 @@ Keep versioning policy in mind when writing scripts: the defaults are chosen for
 ## Upgrade notes
 
 Upgrade notes is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. There is no background process. Everything related to upgrade notes happens when a command runs, which keeps the data model predictable.
+
+
+## Data retention
+
+A short note on data retention: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Data retention is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
