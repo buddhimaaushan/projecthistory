@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Mention the new keyboard shortcut.
 - Add a note about webhook ordering.
 - Describe the workspace invite flow.
 - Note the updated node requirement.
