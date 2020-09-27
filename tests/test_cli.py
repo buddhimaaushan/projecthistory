@@ -91,3 +91,10 @@ def test_cli_unicode_labels_with_large_offsets(storage, capsys):
 
     assert cli.report(0) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_cli_large_values_under_heavy_load(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
