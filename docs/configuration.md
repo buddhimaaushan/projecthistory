@@ -153,3 +153,8 @@ A short note on data retention: prefer the documented flags over editing the dat
 ## Privacy considerations
 
 There is no background process. Everything related to privacy considerations happens when a command runs, which keeps the data model predictable. A short note on privacy considerations: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Accessibility
+
+Keep accessibility in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to accessibility happens when a command runs, which keeps the data model predictable.
