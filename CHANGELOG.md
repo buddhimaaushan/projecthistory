@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Record the nginx configuration update.
 - Note the log format change.
 - Document the new metrics.
 - Add the deployment checklist item.
