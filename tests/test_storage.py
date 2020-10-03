@@ -104,3 +104,12 @@ def test_storage_long_running_under_heavy_load(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_long_running_under_heavy_load.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_unicode_labels_after_a_migration(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_unicode_labels_after_a_migration.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
