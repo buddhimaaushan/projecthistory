@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the new settings page.
 - Record the upgrade to React 19.
 - Note the offline warning banner.
 - Document the chart grouping options.
