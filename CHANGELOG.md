@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add the browser support matrix.
 - Note the CSS variable rename.
 - Describe the new settings page.
 - Record the upgrade to React 19.
