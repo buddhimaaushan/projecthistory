@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the connection pooling change.
 - Add a note about the SQLite WAL mode.
 - Note the renamed environment variables.
 - Mention the new cache invalidation rules.
