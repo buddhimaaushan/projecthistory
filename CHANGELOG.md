@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the token refresh flow.
 - Note the changed login redirect.
 - Add the browser support matrix.
 - Note the CSS variable rename.
