@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Mention the new audit log fields.
 - Describe the token refresh flow.
 - Note the changed login redirect.
 - Add the browser support matrix.
