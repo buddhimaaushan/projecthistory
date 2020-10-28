@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the stricter password policy.
 - Mention the new audit log fields.
 - Describe the token refresh flow.
 - Note the changed login redirect.
