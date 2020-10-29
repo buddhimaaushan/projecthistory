@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Mention the new health check output.
 - Describe the connection pooling change.
 - Add a note about the SQLite WAL mode.
 - Note the renamed environment variables.
