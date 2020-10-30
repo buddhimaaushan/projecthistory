@@ -173,3 +173,8 @@ There is no background process. Everything related to caching happens when a com
 ## Background jobs
 
 Background jobs follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. There is no background process. Everything related to background jobs happens when a command runs, which keeps the data model predictable.
+
+
+## Webhook payloads
+
+Webhook payloads is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. A short note on webhook payloads: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
