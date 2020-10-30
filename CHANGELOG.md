@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the updated export columns.
 - Mention the new health check output.
 - Describe the connection pooling change.
 - Add a note about the SQLite WAL mode.
