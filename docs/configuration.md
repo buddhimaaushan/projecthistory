@@ -178,3 +178,8 @@ Background jobs follows the same rule everywhere: one canonical representation o
 ## Webhook payloads
 
 Webhook payloads is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. A short note on webhook payloads: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Webhook retries
+
+There is no background process. Everything related to webhook retries happens when a command runs, which keeps the data model predictable. Keep webhook retries in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
