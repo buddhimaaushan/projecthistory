@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Document the project rename endpoint.
 - Record the token lifetime default.
 - Note the updated export columns.
 - Mention the new health check output.
