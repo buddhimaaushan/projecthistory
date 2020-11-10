@@ -183,3 +183,8 @@ Webhook payloads is handled at the boundary. The CLI validates input before anyt
 ## Webhook retries
 
 There is no background process. Everything related to webhook retries happens when a command runs, which keeps the data model predictable. Keep webhook retries in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Workspace roles
+
+There is no background process. Everything related to workspace roles happens when a command runs, which keeps the data model predictable. Workspace roles is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
