@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the CSV endpoint filename.
 - Note the new total count header.
 - Document the project rename endpoint.
 - Record the token lifetime default.
