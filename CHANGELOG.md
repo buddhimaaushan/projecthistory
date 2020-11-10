@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the new total count header.
 - Document the project rename endpoint.
 - Record the token lifetime default.
 - Note the updated export columns.
