@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Mention the web theme persistence.
 - Describe the CSV endpoint filename.
 - Note the new total count header.
 - Document the project rename endpoint.
