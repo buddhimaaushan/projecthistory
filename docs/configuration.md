@@ -188,3 +188,8 @@ There is no background process. Everything related to webhook retries happens wh
 ## Workspace roles
 
 There is no background process. Everything related to workspace roles happens when a command runs, which keeps the data model predictable. Workspace roles is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Inviting users
+
+If you are upgrading from an older version, check inviting users before importing years of history. The importer is deliberately strict. Inviting users is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
