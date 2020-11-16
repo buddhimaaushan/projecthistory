@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add a note about the React upgrade.
 - Note the new error boundary behaviour.
 - Mention the web theme persistence.
 - Describe the CSV endpoint filename.
