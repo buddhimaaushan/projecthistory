@@ -193,3 +193,8 @@ There is no background process. Everything related to workspace roles happens wh
 ## Inviting users
 
 If you are upgrading from an older version, check inviting users before importing years of history. The importer is deliberately strict. Inviting users is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Single sign-on
+
+A short note on single sign-on: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Single sign-on follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
