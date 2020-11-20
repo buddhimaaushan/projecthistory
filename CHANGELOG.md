@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Mention the ruff configuration.
 - Describe the Vite 6 migration.
 - Add a note about the React upgrade.
 - Note the new error boundary behaviour.
