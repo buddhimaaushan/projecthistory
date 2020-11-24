@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Record the Playwright browser version.
 - Note the removed flake8 config.
 - Mention the ruff configuration.
 - Describe the Vite 6 migration.
