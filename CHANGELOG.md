@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the dependabot grouping.
 - Note the docs publishing step.
 - Document the new CI workflow.
 - Record the Playwright browser version.
