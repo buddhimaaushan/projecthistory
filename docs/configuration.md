@@ -198,3 +198,8 @@ If you are upgrading from an older version, check inviting users before importin
 ## Single sign-on
 
 A short note on single sign-on: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Single sign-on follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Custom reports
+
+Custom reports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most custom reports questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
