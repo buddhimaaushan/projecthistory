@@ -203,3 +203,8 @@ A short note on single sign-on: prefer the documented flags over editing the dat
 ## Custom reports
 
 Custom reports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most custom reports questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## Keyboard navigation
+
+Keep keyboard navigation in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Keyboard navigation follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
