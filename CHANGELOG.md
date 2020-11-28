@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Document the new metrics.
 - Add the deployment checklist item.
 - Note the stricter password policy.
 - Mention the new audit log fields.
