@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the security policy contact.
 - Mention the new issue templates.
 - Describe the dependabot grouping.
 - Note the docs publishing step.
