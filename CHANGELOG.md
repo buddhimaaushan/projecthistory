@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the log format change.
 - Document the new metrics.
 - Add the deployment checklist item.
 - Note the stricter password policy.
