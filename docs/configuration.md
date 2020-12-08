@@ -208,3 +208,8 @@ Custom reports is handled at the boundary. The CLI validates input before anythi
 ## Keyboard navigation
 
 Keep keyboard navigation in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Keyboard navigation follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
+
+
+## Offline behaviour
+
+Keep offline behaviour in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. A short note on offline behaviour: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
