@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Mention the backup retention default.
 - Record the nginx configuration update.
 - Note the log format change.
 - Document the new metrics.
