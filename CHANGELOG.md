@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Record the login error message.
 - Note the skeleton placeholders.
 - Mention the offline banner.
 - Describe the mobile table layout.
