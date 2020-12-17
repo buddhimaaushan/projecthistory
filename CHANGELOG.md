@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe the slower first request after boot.
 - Note the new request validation errors.
 - Mention the backup retention default.
 - Record the nginx configuration update.
