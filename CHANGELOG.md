@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Mention the offline banner.
 - Describe the mobile table layout.
 - Note the new chart empty state.
 - Document the release checklist.
