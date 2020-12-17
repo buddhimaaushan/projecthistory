@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Note the new request validation errors.
 - Mention the backup retention default.
 - Record the nginx configuration update.
 - Note the log format change.
