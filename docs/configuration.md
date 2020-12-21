@@ -213,3 +213,8 @@ Keep keyboard navigation in mind when writing scripts: the defaults are chosen f
 ## Offline behaviour
 
 Keep offline behaviour in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. A short note on offline behaviour: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
+
+
+## Mobile layout
+
+There is no background process. Everything related to mobile layout happens when a command runs, which keeps the data model predictable. Keep mobile layout in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
