@@ -1,18 +1,20 @@
 """Command line interface for tempus."""
 
 import argparse
+import json
 import os
 import sys
 from datetime import datetime, timedelta
+from typing import List, Optional
 
 from . import __version__
 from .config import Config
 from .models import Entry
+from .reports import filter_entries, group_by_day, group_by_project, summarise
 from .storage import JsonStorage, SqliteStorage
-from .utils import format_duration, parse_duration
+from .utils import format_duration, parse_date, parse_duration
 
 DEFAULT_PATH = os.environ.get("TEMPUS_FILE", os.path.expanduser("~/.tempus.json"))
-DEFAULT_DB = os.environ.get("TEMPUS_DB", os.path.expanduser("~/.tempus.db"))
 
 
 def get_storage():
@@ -22,22 +24,11 @@ def get_storage():
     return JsonStorage(DEFAULT_PATH)
 
 
-def migrate():
-    source = JsonStorage(DEFAULT_PATH)
-    target = SqliteStorage(DEFAULT_DB)
-    count = 0
-    for entry in source.all():
-        target.add(entry)
-        count += 1
-    print("migrated %d entries to %s" % (count, DEFAULT_DB))
-    return 0
-
-
 def format_delta(delta):
     return format_duration(delta.total_seconds())
 
 
-def start(label, tags=None, project=None):
+def start(label: str, tags: str = "", project: Optional[str] = None) -> int:
     storage = get_storage()
     entries = storage.all()
     if entries and entries[-1].is_running:
@@ -46,8 +37,8 @@ def start(label, tags=None, project=None):
     storage.add(
         Entry(
             label=label,
-            project=project,
-            tags=[tag.strip() for tag in (tags or "").split(",") if tag.strip()],
+            project=project or Config.load().default_project or None,
+            tags=[tag.strip() for tag in tags.split(",") if tag.strip()],
             start=datetime.now(),
         )
     )
@@ -55,7 +46,7 @@ def start(label, tags=None, project=None):
     return 0
 
 
-def stop():
+def stop() -> int:
     storage = get_storage()
     entries = storage.all()
     if not entries or not entries[-1].is_running:
@@ -68,32 +59,35 @@ def stop():
     return 0
 
 
-def status():
+def status() -> int:
     entries = get_storage().all()
     if not entries:
-        print("no entries yet - try: tempus start \"something\"")
+        print('no entries yet - try: tempus start "something"')
         return 0
     entry = entries[-1]
     if entry.is_running:
         print("%s (running %s)" % (entry.label, format_delta(entry.duration)))
     else:
-        print("%s (last entry)" % entry.label)
+        print("%s (last entry, %s)" % (entry.label, entry.start.strftime("%Y-%m-%d %H:%M")))
     return 0
 
 
-def list_entries(limit=10):
+def list_entries(limit: int = 10) -> int:
     entries = get_storage().all()
     for entry in entries[-limit:]:
-        print("%s  %-30s %-10s %s" % (
-            entry.start.strftime("%Y-%m-%d %H:%M"),
-            entry.label,
-            format_delta(entry.duration),
-            "running" if entry.is_running else "",
-        ))
+        print(
+            "%s  %-30s %-10s %s"
+            % (
+                entry.start.strftime("%Y-%m-%d %H:%M"),
+                entry.label,
+                format_delta(entry.duration),
+                "running" if entry.is_running else "",
+            )
+        )
     return 0
 
 
-def delete(index):
+def delete(index: int) -> int:
     storage = get_storage()
     entries = storage.all()
     try:
@@ -106,57 +100,7 @@ def delete(index):
     return 0
 
 
-def report(days=1, by_project=False):
-    entries = get_storage().all()
-    now = datetime.now()
-    since = now - timedelta(days=days)
-    total = timedelta()
-    projects = {}
-    for entry in entries:
-        if entry.end is not None and entry.end < since:
-            continue
-        if entry.start > now:
-            continue
-        total += entry.duration
-        if by_project:
-            name = entry.project or "unassigned"
-            projects[name] = projects.get(name, timedelta()) + entry.duration
-        else:
-            print("%-30s %s" % (entry.label, format_delta(entry.duration)))
-    if by_project:
-        for name in sorted(projects):
-            print("%-30s %s" % (name, format_delta(projects[name])))
-    print("-" * 40)
-    print("%-30s %s" % ("total", format_delta(total)))
-    return 0
-
-
-def today():
-    return report(days=1)
-
-
-def week():
-    entries = get_storage().all()
-    totals = {}
-    for entry in entries:
-        key = entry.start.strftime("%Y-%m-%d")
-        totals[key] = totals.get(key, timedelta()) + entry.duration
-    for key in sorted(totals):
-        print("%s  %s" % (key, format_delta(totals[key])))
-    return 0
-
-
-
-
-def show_config():
-    config = Config.load()
-    print("database = %s" % config.database)
-    print("default_project = %s" % config.default_project)
-    print("week_starts_on = %s" % config.week_starts_on)
-    return 0
-
-
-def edit(index, label=None, project=None):
+def edit(index: int, label: Optional[str] = None, project: Optional[str] = None) -> int:
     storage = get_storage()
     entries = storage.all()
     try:
@@ -173,13 +117,63 @@ def edit(index, label=None, project=None):
     return 0
 
 
-def add_manual(label, duration, start=None):
+def add_manual(label: str, duration: str, start: Optional[str] = None, project: Optional[str] = None) -> int:
     storage = get_storage()
-    started = datetime.fromisoformat(start) if start else datetime.now() - parse_duration(duration)
-    storage.add(Entry(label=label, start=started, end=started + parse_duration(duration)))
+    length = parse_duration(duration)
+    started = datetime.fromisoformat(start) if start else datetime.now() - length
+    storage.add(Entry(label=label, project=project, start=started, end=started + length))
     print("added: %s (%s)" % (label, duration))
     return 0
-def build_parser():
+
+
+def report(days: int = 1, by_project: bool = False, as_json: bool = False) -> int:
+    entries = filter_entries(get_storage().all(), start=datetime.now() - timedelta(days=days))
+    if as_json:
+        print(json.dumps(summarise(entries), default=str, indent=2))
+        return 0
+    if by_project:
+        for name, seconds in group_by_project(entries).items():
+            print("%-30s %s" % (name, format_duration(seconds)))
+    else:
+        for entry in entries:
+            print("%-30s %s" % (entry.label, format_delta(entry.duration)))
+    summary = summarise(entries)
+    print("-" * 40)
+    print("%-30s %s" % ("total", format_duration(summary["total_seconds"])))
+    return 0
+
+
+def today() -> int:
+    return report(days=1)
+
+
+def week() -> int:
+    for day, entries in group_by_day(get_storage().all()).items():
+        print("%s  %s" % (day, format_duration(summarise(entries)["total_seconds"])))
+    return 0
+
+
+def show_config() -> int:
+    config = Config.load()
+    print("database = %s" % config.database)
+    print("default_project = %s" % config.default_project)
+    print("week_starts_on = %s" % config.week_starts_on)
+    print("weekly_target = %s" % config.weekly_target)
+    return 0
+
+
+def migrate() -> int:
+    source = JsonStorage(DEFAULT_PATH)
+    target = SqliteStorage(Config.load().database)
+    count = 0
+    for entry in source.all():
+        target.add(entry)
+        count += 1
+    print("migrated %d entries to %s" % (count, target.connection))
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
     parser.add_argument("--version", action="version", version="tempus " + __version__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -193,6 +187,15 @@ def build_parser():
     sub.add_parser("status", help="show the running entry")
     sub.add_parser("list", help="show the most recent entries")
     sub.add_parser("today", help="report for the current day")
+    sub.add_parser("week", help="totals for every recorded day")
+    sub.add_parser("config", help="print the resolved configuration")
+    sub.add_parser("migrate", help="move entries from JSON to SQLite")
+
+    p_add = sub.add_parser("add", help="record an entry after the fact")
+    p_add.add_argument("label")
+    p_add.add_argument("--duration", required=True)
+    p_add.add_argument("--at", default=None)
+    p_add.add_argument("--project", default=None)
 
     p_delete = sub.add_parser("delete", help="remove an entry by index")
     p_delete.add_argument("index", type=int)
@@ -202,38 +205,34 @@ def build_parser():
     p_edit.add_argument("--label")
     p_edit.add_argument("--project")
 
-    p_add = sub.add_parser("add", help="record an entry after the fact")
-    p_add.add_argument("label")
-    p_add.add_argument("--duration", required=True)
-    p_add.add_argument("--at", default=None)
-
-    sub.add_parser("migrate", help="move entries from JSON to SQLite")
-    sub.add_parser("config", help="print the resolved configuration")
-
     p_report = sub.add_parser("report", help="show totals for the last N days")
     p_report.add_argument("--days", type=int, default=1)
     p_report.add_argument("--by-project", action="store_true")
+    p_report.add_argument("--json", action="store_true")
 
     return parser
 
 
-def main(argv=None):
+HANDLERS = {
+    "start": lambda args: start(args.label, args.tags, args.project),
+    "stop": lambda args: stop(),
+    "status": lambda args: status(),
+    "list": lambda args: list_entries(),
+    "delete": lambda args: delete(args.index),
+    "edit": lambda args: edit(args.index, args.label, args.project),
+    "add": lambda args: add_manual(args.label, args.duration, args.at, args.project),
+    "report": lambda args: report(args.days, args.by_project, args.json),
+    "today": lambda args: today(),
+    "week": lambda args: week(),
+    "config": lambda args: show_config(),
+    "migrate": lambda args: migrate(),
+}
+
+
+def main(argv: Optional[List[str]] = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    handlers = {
-        "start": lambda: start(args.label, args.tags, args.project),
-        "stop": stop,
-        "status": status,
-        "list": list_entries,
-        "delete": lambda: delete(args.index),
-        "edit": lambda: edit(args.index, args.label, args.project),
-        "report": lambda: report(args.days, args.by_project),
-        "today": today,
-        "add": lambda: add_manual(args.label, args.duration, args.at),
-        "migrate": migrate,
-        "config": show_config,
-    }
-    return handlers[args.command]()
+    return HANDLERS[args.command](args)
 
 
 if __name__ == "__main__":

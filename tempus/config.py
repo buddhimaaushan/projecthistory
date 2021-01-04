@@ -15,6 +15,7 @@ class Config:
     database: str
     default_project: str = ""
     week_starts_on: str = "monday"
+    weekly_target: int = 0
 
     @classmethod
     def load(cls, path=None):
@@ -30,4 +31,5 @@ class Config:
             database=database,
             default_project=parser.get("general", "default_project", fallback=""),
             week_starts_on=parser.get("general", "week_starts_on", fallback="monday"),
+            weekly_target=parser.getint("general", "weekly_target", fallback=0),
         )
