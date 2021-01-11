@@ -9,6 +9,7 @@ from typing import List, Optional
 
 from . import __version__
 from .config import Config
+from .export import export_csv, export_json, import_json
 from .models import Entry
 from .reports import filter_entries, group_by_day, group_by_project, summarise
 from .storage import JsonStorage, SqliteStorage
@@ -173,6 +174,17 @@ def migrate() -> int:
     return 0
 
 
+
+
+def export_command(fmt: str, path: str) -> int:
+    entries = get_storage().all()
+    if fmt == "csv":
+        export_csv(entries, path)
+    else:
+        with open(path, "w") as handle:
+            handle.write(export_json(entries))
+    print("exported %d entries to %s" % (len(entries), path))
+    return 0
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
     parser.add_argument("--version", action="version", version="tempus " + __version__)
@@ -205,6 +217,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_edit.add_argument("--label")
     p_edit.add_argument("--project")
 
+    p_export = sub.add_parser("export", help="write entries to a file")
+    p_export.add_argument("--format", choices=["csv", "json"], default="csv")
+    p_export.add_argument("path")
+
     p_report = sub.add_parser("report", help="show totals for the last N days")
     p_report.add_argument("--days", type=int, default=1)
     p_report.add_argument("--by-project", action="store_true")
@@ -226,6 +242,7 @@ HANDLERS = {
     "week": lambda args: week(),
     "config": lambda args: show_config(),
     "migrate": lambda args: migrate(),
+    "export": lambda args: export_command(args.format, args.path),
 }
 
 
