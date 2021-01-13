@@ -185,6 +185,16 @@ def export_command(fmt: str, path: str) -> int:
             handle.write(export_json(entries))
     print("exported %d entries to %s" % (len(entries), path))
     return 0
+
+
+def import_command(path: str) -> int:
+    with open(path) as handle:
+        entries = import_json(handle.read())
+    storage = get_storage()
+    for entry in entries:
+        storage.add(entry)
+    print("imported %d entries from %s" % (len(entries), path))
+    return 0
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
     parser.add_argument("--version", action="version", version="tempus " + __version__)
@@ -221,6 +231,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_export.add_argument("--format", choices=["csv", "json"], default="csv")
     p_export.add_argument("path")
 
+    p_import = sub.add_parser("import", help="load entries from a JSON export")
+    p_import.add_argument("path")
+
     p_report = sub.add_parser("report", help="show totals for the last N days")
     p_report.add_argument("--days", type=int, default=1)
     p_report.add_argument("--by-project", action="store_true")
@@ -243,6 +256,7 @@ HANDLERS = {
     "config": lambda args: show_config(),
     "migrate": lambda args: migrate(),
     "export": lambda args: export_command(args.format, args.path),
+    "import": lambda args: import_command(args.path),
 }
 
 
