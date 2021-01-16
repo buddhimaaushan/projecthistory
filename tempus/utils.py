@@ -1,7 +1,7 @@
 """Small parsing and formatting helpers."""
 
 import re
-from datetime import timedelta
+from datetime import date, datetime, timedelta
 
 DURATION_RE = re.compile(r"^(?:(?P<hours>\d+)h)?(?:(?P<minutes>\d+)m)?$")
 
@@ -22,3 +22,10 @@ def format_duration(seconds):
     if hours:
         return "%dh %dm" % (hours, minutes)
     return "%dm" % minutes
+
+
+def parse_date(value):
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        raise ValueError("expected an ISO date such as 2021-05-04")
