@@ -127,8 +127,10 @@ def add_manual(label: str, duration: str, start: Optional[str] = None, project: 
     return 0
 
 
-def report(days: int = 1, by_project: bool = False, as_json: bool = False) -> int:
-    entries = filter_entries(get_storage().all(), start=datetime.now() - timedelta(days=days))
+def report(days: int = 1, by_project: bool = False, as_json: bool = False, since=None, until=None) -> int:
+    start = parse_date(since) if since else datetime.now() - timedelta(days=days)
+    end = parse_date(until) if until else None
+    entries = filter_entries(get_storage().all(), start=start, end=end)
     if as_json:
         print(json.dumps(summarise(entries), default=str, indent=2))
         return 0
@@ -238,6 +240,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_report.add_argument("--days", type=int, default=1)
     p_report.add_argument("--by-project", action="store_true")
     p_report.add_argument("--json", action="store_true")
+    p_report.add_argument("--from", dest="since", default=None)
+    p_report.add_argument("--to", dest="until", default=None)
 
     return parser
 
@@ -250,7 +254,7 @@ HANDLERS = {
     "delete": lambda args: delete(args.index),
     "edit": lambda args: edit(args.index, args.label, args.project),
     "add": lambda args: add_manual(args.label, args.duration, args.at, args.project),
-    "report": lambda args: report(args.days, args.by_project, args.json),
+    "report": lambda args: report(args.days, args.by_project, args.json, args.since, args.until),
     "today": lambda args: today(),
     "week": lambda args: week(),
     "config": lambda args: show_config(),
