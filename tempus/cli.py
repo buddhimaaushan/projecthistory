@@ -197,6 +197,13 @@ def import_command(path: str) -> int:
         storage.add(entry)
     print("imported %d entries from %s" % (len(entries), path))
     return 0
+
+
+def summary(days: int = 7) -> int:
+    entries = filter_entries(get_storage().all(), start=datetime.now() - timedelta(days=days))
+    data = summarise(entries)
+    print(json.dumps(data, default=str))
+    return 0
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
     parser.add_argument("--version", action="version", version="tempus " + __version__)
@@ -213,6 +220,9 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("today", help="report for the current day")
     sub.add_parser("week", help="totals for every recorded day")
     sub.add_parser("config", help="print the resolved configuration")
+
+    p_summary = sub.add_parser("summary", help="compact totals for scripts")
+    p_summary.add_argument("--days", type=int, default=7)
     sub.add_parser("migrate", help="move entries from JSON to SQLite")
 
     p_add = sub.add_parser("add", help="record an entry after the fact")
@@ -258,6 +268,7 @@ HANDLERS = {
     "today": lambda args: today(),
     "week": lambda args: week(),
     "config": lambda args: show_config(),
+    "summary": lambda args: summary(args.days),
     "migrate": lambda args: migrate(),
     "export": lambda args: export_command(args.format, args.path),
     "import": lambda args: import_command(args.path),
