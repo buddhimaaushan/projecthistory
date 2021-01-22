@@ -211,6 +211,10 @@ def import_command(path: str) -> int:
 def summary(days: int = 7) -> int:
     entries = filter_entries(get_storage().all(), start=datetime.now() - timedelta(days=days))
     data = summarise(entries)
+    target = Config.load().weekly_target
+    if target:
+        data["target_seconds"] = target * 3600
+        data["remaining_seconds"] = max(0, target * 3600 - data["total_seconds"])
     print(json.dumps(data, default=str))
     return 0
 def build_parser() -> argparse.ArgumentParser:
