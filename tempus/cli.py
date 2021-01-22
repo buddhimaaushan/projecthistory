@@ -4,14 +4,20 @@ import argparse
 import json
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from typing import List, Optional
 
 from . import __version__
 from .config import Config
 from .export import export_csv, export_json, import_json
 from .models import Entry
-from .reports import filter_entries, group_by_day, group_by_project, summarise
+from .reports import (
+    filter_entries,
+    group_by_day,
+    group_by_project,
+    summarise,
+    week_bounds,
+)
 from .storage import JsonStorage, SqliteStorage
 from .utils import format_duration, parse_date, parse_duration
 
@@ -151,8 +157,11 @@ def today() -> int:
 
 
 def week() -> int:
+    config = Config.load()
     for day, entries in group_by_day(get_storage().all()).items():
         print("%s  %s" % (day, format_duration(summarise(entries)["total_seconds"])))
+    start, end = week_bounds(date.today(), config.week_starts_on)
+    print("week %s..%s" % (start, end))
     return 0
 
 
