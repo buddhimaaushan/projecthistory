@@ -4,6 +4,8 @@ import json
 import os
 from datetime import datetime
 
+from typing import Iterable, List
+
 from .models import Entry
 
 
@@ -32,7 +34,7 @@ class JsonStorage:
             json.dump({"entries": entries}, handle, indent=2)
         os.replace(tmp, self.path)
 
-    def all(self):
+    def all(self) -> List[Entry]:
         return [
             Entry(
                 start=_parse(row["start"]),
@@ -44,7 +46,7 @@ class JsonStorage:
             for row in self._read()
         ]
 
-    def add(self, entry):
+    def add(self, entry: Entry) -> Entry:
         rows = self._read()
         rows.append(
             {
@@ -108,11 +110,11 @@ class SqliteStorage:
             end=_parse(row["end"]),
         )
 
-    def all(self):
+    def all(self) -> List[Entry]:
         rows = self.connection.execute("SELECT * FROM entries ORDER BY start").fetchall()
         return [self._row_to_entry(row) for row in rows]
 
-    def add(self, entry):
+    def add(self, entry: Entry) -> Entry:
         cursor = self.connection.execute(
             "INSERT INTO entries (label, project, tags, start, end) VALUES (?, ?, ?, ?, ?)",
             (
@@ -145,3 +147,11 @@ class SqliteStorage:
     def delete(self, entry_id):
         self.connection.execute("DELETE FROM entries WHERE id = ?", (entry_id,))
         self.connection.commit()
+
+
+def add_many(storage, entries: Iterable[Entry]) -> int:
+    count = 0
+    for entry in entries:
+        storage.add(entry)
+        count += 1
+    return count
