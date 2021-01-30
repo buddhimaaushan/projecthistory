@@ -25,7 +25,7 @@ def export_csv(entries: Iterable[Entry], path: str) -> str:
         writer = csv.DictWriter(handle, fieldnames=FIELDS)
         writer.writeheader()
         for entry in entries:
-            writer.writerow(as_row(entry))
+            writer.writerow({key: value.replace("\n", " ") for key, value in as_row(entry).items()})
     return path
 
 
