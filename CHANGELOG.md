@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0
+
+- `reports` and `export` modules keep the CLI thin.
+- CSV and JSON export, JSON import.
+- Date range filters, `summary` command and weekly targets.
+- Type hints, mypy, tox and pre-commit.
+
+
 ## Unreleased
 
 - Record the login error message.
