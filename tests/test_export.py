@@ -26,3 +26,11 @@ def test_export_json_roundtrip():
     restored = import_json(payload)
     assert restored[0].label == "writing"
     assert restored[0].tags == ["docs"]
+
+
+def test_export_missing_id_with_large_offsets(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_missing_id_with_large_offsets.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
