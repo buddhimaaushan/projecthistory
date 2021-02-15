@@ -18,7 +18,7 @@ from .reports import (
     summarise,
     week_bounds,
 )
-from .storage import JsonStorage, SqliteStorage
+from .storage import JsonStorage, SqliteStorage, add_many
 from .utils import format_duration, parse_date, parse_duration
 
 DEFAULT_PATH = os.environ.get("TEMPUS_FILE", os.path.expanduser("~/.tempus.json"))
@@ -177,10 +177,7 @@ def show_config() -> int:
 def migrate() -> int:
     source = JsonStorage(DEFAULT_PATH)
     target = SqliteStorage(Config.load().database)
-    count = 0
-    for entry in source.all():
-        target.add(entry)
-        count += 1
+    count = add_many(target, source.all())
     print("migrated %d entries to %s" % (count, target.connection))
     return 0
 
