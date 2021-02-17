@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Add a note about the API worker count.
 - Note the lazy chart import.
 - Mention the reduced bundle size.
 - Describe the sign out behaviour.
