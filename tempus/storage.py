@@ -35,16 +35,20 @@ class JsonStorage:
         os.replace(tmp, self.path)
 
     def all(self) -> List[Entry]:
-        return [
-            Entry(
-                start=_parse(row["start"]),
-                end=_parse(row.get("end")),
-                label=row.get("label", ""),
-                project=row.get("project"),
-                tags=row.get("tags") or [],
+        entries = []
+        for row in self._read():
+            if not row.get("start"):
+                continue
+            entries.append(
+                Entry(
+                    start=_parse(row["start"]),
+                    end=_parse(row.get("end")),
+                    label=row.get("label", ""),
+                    project=row.get("project"),
+                    tags=row.get("tags") or [],
+                )
             )
-            for row in self._read()
-        ]
+        return entries
 
     def add(self, entry: Entry) -> Entry:
         rows = self._read()
