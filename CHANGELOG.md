@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Mention the backup script path.
 - Describe the compose health check.
 - Add a note about the API worker count.
 - Note the lazy chart import.
