@@ -133,3 +133,13 @@ def test_cli_missing_id_with_stale_cache(storage, capsys):
 
     assert cli.report(0) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_stop_without_running_entry(storage, capsys):
+    assert cli.stop() == 1
+    assert "nothing to stop" in capsys.readouterr().out
+
+
+def test_delete_out_of_range(storage, capsys):
+    assert cli.delete(10) == 1
+    assert "no entry at index 10" in capsys.readouterr().out
