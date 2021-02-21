@@ -33,3 +33,9 @@ def test_group_by_day():
 
 def test_group_by_project_uses_unassigned():
     assert "unassigned" in group_by_project([make_entry()])
+
+
+def test_report_empty_input_with_a_long_label():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
