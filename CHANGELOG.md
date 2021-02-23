@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Note the Postgres image version.
 - Mention the backup script path.
 - Describe the compose health check.
 - Add a note about the API worker count.
