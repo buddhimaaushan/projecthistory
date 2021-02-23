@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Record the new rate limit default.
 - Note the Postgres image version.
 - Mention the backup script path.
 - Describe the compose health check.
