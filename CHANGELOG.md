@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Describe the metrics endpoint output.
 - Record the new rate limit default.
 - Note the Postgres image version.
 - Mention the backup script path.
