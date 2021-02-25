@@ -1,120 +1,45 @@
 # tempus
 
-A very small time tracker that lives in the terminal.
+A small, self-hosted time tracker. It started as a single Python file and now
+ships a CLI, an HTTP API and a small web dashboard.
 
-Start a timer, stop it, look at where the day went.
+## Features
 
-```
-$ python tempus.py start "writing docs"
-$ python tempus.py stop
-$ python tempus.py status
-```
+- Start/stop timers from the terminal, with projects and tags.
+- Reports by day, project or arbitrary date range.
+- CSV and JSON export/import.
+- SQLite storage with a JSON fallback for old installs.
+- Weekly targets and a compact JSON summary for status bars.
+- Test suite, type checking and linting in CI.
 
-Data is stored as JSON in `~/.tempus.json`.
-
-## Installation
-
-```
-$ git clone https://github.com/buddhimaaushan/tempus.git
-$ cd tempus
-$ pip install -e .
-```
-
-## Reports
+## Install
 
 ```
-$ python tempus.py report --days 7
-$ python tempus.py list
+$ python -m venv .venv
+$ . .venv/bin/activate
+$ pip install -e ".[dev]"
 ```
 
-Report totals are rounded down to whole minutes.
+## Usage
 
+```
+$ tempus start "writing docs" --project tempus --tags docs
+$ tempus stop
+$ tempus report --days 7 --by-project
+$ tempus export --format csv ~/Downloads/tempus.csv
+```
 
-## Configuration precedence
+See [docs/cli.md](docs/cli.md) for the full command list.
 
-Configuration precedence is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. If you are upgrading from an older version, check configuration precedence before importing years of history. The importer is deliberately strict.
+## Layout
 
+| Path | Purpose |
+| --- | --- |
+| `tempus/` | Core package and CLI |
+| `tests/` | pytest suite |
+| `docs/` | Hand written documentation |
+| `scripts/` | Maintenance scripts |
 
-## Choosing a database location
+## License
 
-Keep choosing a database location in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. A short note on choosing a database location: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
-
-
-## Working with tags
-
-When working with tags misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get. Working with tags is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
-
-
-## Grouping by project
-
-There is no background process. Everything related to grouping by project happens when a command runs, which keeps the data model predictable. Grouping by project is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
-
-
-## Date ranges in reports
-
-There is no background process. Everything related to date ranges in reports happens when a command runs, which keeps the data model predictable. Date ranges in reports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
-
-
-## Exporting to CSV
-
-If you are upgrading from an older version, check exporting to csv before importing years of history. The importer is deliberately strict. Exporting to CSV follows the same rule everywhere: one canonical representation on disk, formatting only at the edges.
-
-
-## Importing JSON exports
-
-Importing JSON exports is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. Most importing json exports questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
-
-
-## Weekly targets
-
-Most weekly targets questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Keep weekly targets in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
-
-
-## Time zone handling
-
-Time zone handling follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. There is no background process. Everything related to time zone handling happens when a command runs, which keeps the data model predictable.
-
-
-## Backup and restore
-
-If you are upgrading from an older version, check backup and restore before importing years of history. The importer is deliberately strict. A short note on backup and restore: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
-
-
-## Running on a server
-
-If you are upgrading from an older version, check running on a server before importing years of history. The importer is deliberately strict. A short note on running on a server: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
-
-
-## Reverse proxy setup
-
-There is no background process. Everything related to reverse proxy setup happens when a command runs, which keeps the data model predictable. A short note on reverse proxy setup: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
-
-
-## Environment variables
-
-There is no background process. Everything related to environment variables happens when a command runs, which keeps the data model predictable. Keep environment variables in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
-
-
-## Shell completion
-
-Keep shell completion in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Shell completion is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
-
-
-## Using tempus from cron
-
-Keep using tempus from cron in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Most using tempus from cron questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
-
-
-## Editing past entries
-
-Editing past entries is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. A short note on editing past entries: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
-
-
-## Rounding and precision
-
-Rounding and precision is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test. A short note on rounding and precision: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong.
-
-
-## Storage format
-
-There is no background process. Everything related to storage format happens when a command runs, which keeps the data model predictable. If you are upgrading from an older version, check storage format before importing years of history. The importer is deliberately strict.
+MIT
