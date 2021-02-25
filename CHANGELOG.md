@@ -6,6 +6,7 @@
 - CSV and JSON export, JSON import.
 - Date range filters, `summary` command and weekly targets.
 - Type hints, mypy, tox and pre-commit.
+- `weekly_target` is shown as remaining time in `summary`.
 
 
 ## Unreleased
