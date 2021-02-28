@@ -21,3 +21,8 @@ Rules of thumb:
 
 The SQLite schema is deliberately boring. Timestamps are stored as ISO strings
 in local time so they stay readable when debugging by hand.
+
+
+## Search and filters
+
+Keep search and filters in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. Most search and filters questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
