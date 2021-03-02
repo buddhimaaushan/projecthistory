@@ -45,3 +45,9 @@ def test_report_stale_cache_with_duplicate_tags():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_stale_cache_with_missing_ids():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
