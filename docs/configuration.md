@@ -218,3 +218,8 @@ Keep offline behaviour in mind when writing scripts: the defaults are chosen for
 ## Mobile layout
 
 There is no background process. Everything related to mobile layout happens when a command runs, which keeps the data model predictable. Keep mobile layout in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
+
+
+## Bulk editing
+
+Keep bulk editing in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to bulk editing happens when a command runs, which keeps the data model predictable.
