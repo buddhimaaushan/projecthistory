@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Note the request id header.
 - Mention the structured log format.
 - Describe the metrics endpoint output.
 - Record the new rate limit default.
