@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Add a note about the SQLite WAL mode.
 - Note the renamed environment variables.
 - Mention the new cache invalidation rules.
 - Describe the slower first request after boot.
