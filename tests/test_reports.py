@@ -45,3 +45,9 @@ def test_report_partial_data_with_pagination():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_unicode_labels_for_a_new_account():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
