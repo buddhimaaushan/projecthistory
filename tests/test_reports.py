@@ -51,3 +51,9 @@ def test_report_unicode_labels_for_a_new_account():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_past_end_after_a_reopen():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
