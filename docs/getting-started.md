@@ -31,3 +31,8 @@ $ tempus add "writing notes" --duration 45m
 - SQLite database: `~/.tempus.db` (override with `TEMPUS_DB`).
 - JSON fallback: `~/.tempus.json` (override with `TEMPUS_FILE`).
 - Config: `~/.config/tempus/config.ini`.
+
+
+## Importing from other tools
+
+Importing from other tools follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. When importing from other tools misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
