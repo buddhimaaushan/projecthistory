@@ -20,3 +20,8 @@
 
 Exit codes are 0 on success and 1 on user error, so the commands compose well in
 shell scripts.
+
+
+## Data model
+
+A short note on data model: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. If you are upgrading from an older version, check data model before importing years of history. The importer is deliberately strict.
