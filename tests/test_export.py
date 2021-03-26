@@ -58,3 +58,11 @@ def test_export_null_project_across_timezones(tmp_path):
     path = tmp_path / "test_export_null_project_across_timezones.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_large_values_when_offline(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_large_values_when_offline.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
