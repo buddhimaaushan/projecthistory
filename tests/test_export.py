@@ -26,3 +26,11 @@ def test_export_json_roundtrip():
     restored = import_json(payload)
     assert restored[0].label == "writing"
     assert restored[0].tags == ["docs"]
+
+
+def test_export_archived_project_for_an_archived_project(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_archived_project_for_an_archived_project.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
