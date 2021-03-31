@@ -257,3 +257,12 @@ def test_storage_boundaries_with_duplicate_tags(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_boundaries_with_duplicate_tags.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_pagination_with_unicode_input(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_pagination_with_unicode_input.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
