@@ -223,3 +223,8 @@ There is no background process. Everything related to mobile layout happens when
 ## Bulk editing
 
 Keep bulk editing in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. There is no background process. Everything related to bulk editing happens when a command runs, which keeps the data model predictable.
+
+
+## Project structure
+
+There is no background process. Everything related to project structure happens when a command runs, which keeps the data model predictable. Most project structure questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
