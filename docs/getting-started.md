@@ -36,3 +36,8 @@ $ tempus add "writing notes" --duration 45m
 ## Importing from other tools
 
 Importing from other tools follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. When importing from other tools misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
+
+
+## Dependency policy
+
+A short note on dependency policy: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. If you are upgrading from an older version, check dependency policy before importing years of history. The importer is deliberately strict.
