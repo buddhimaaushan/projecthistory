@@ -199,3 +199,10 @@ def test_cli_missing_id_after_a_migration(storage, capsys):
 
     assert cli.report(0) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_cli_sorting_with_defaults(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
