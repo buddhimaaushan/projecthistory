@@ -25,3 +25,8 @@ shell scripts.
 ## Data model
 
 A short note on data model: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. If you are upgrading from an older version, check data model before importing years of history. The importer is deliberately strict.
+
+
+## Security headers
+
+Most security headers questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Security headers is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
