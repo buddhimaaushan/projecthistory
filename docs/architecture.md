@@ -31,3 +31,8 @@ Keep search and filters in mind when writing scripts: the defaults are chosen fo
 ## Request lifecycle
 
 Request lifecycle follows the same rule everywhere: one canonical representation on disk, formatting only at the edges. There is no background process. Everything related to request lifecycle happens when a command runs, which keeps the data model predictable.
+
+
+## CORS
+
+Most cors questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. There is no background process. Everything related to cors happens when a command runs, which keeps the data model predictable.
