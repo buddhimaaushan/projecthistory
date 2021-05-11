@@ -228,3 +228,8 @@ Keep bulk editing in mind when writing scripts: the defaults are chosen for inte
 ## Project structure
 
 There is no background process. Everything related to project structure happens when a command runs, which keeps the data model predictable. Most project structure questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
+
+
+## TLS termination
+
+A short note on tls termination: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. Keep tls termination in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs.
