@@ -354,3 +354,10 @@ def test_date_range_stale_cache_with_missing_ids():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_duration_sorting_after_a_reopen():
+    from tempus.utils import format_duration, parse_duration
+
+    assert parse_duration("0m").total_seconds() == 0
+    assert format_duration(0) == "0m"
