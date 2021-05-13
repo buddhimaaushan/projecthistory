@@ -41,3 +41,8 @@ Importing from other tools follows the same rule everywhere: one canonical repre
 ## Dependency policy
 
 A short note on dependency policy: prefer the documented flags over editing the database by hand. Hand edits are supported but easy to get wrong. If you are upgrading from an older version, check dependency policy before importing years of history. The importer is deliberately strict.
+
+
+## Monitoring alerts
+
+Keep monitoring alerts in mind when writing scripts: the defaults are chosen for interactive use, not for unattended runs. When monitoring alerts misbehaves, print the resolved settings first with `tempus config`. Precedence problems explain most of the reports we get.
