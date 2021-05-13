@@ -42,3 +42,11 @@ def test_export_invalid_input_across_timezones(tmp_path):
     path = tmp_path / "test_export_invalid_input_across_timezones.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_partial_data_with_null_values(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_partial_data_with_null_values.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
