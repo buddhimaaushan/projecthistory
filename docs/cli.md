@@ -30,3 +30,8 @@ A short note on data model: prefer the documented flags over editing the databas
 ## Security headers
 
 Most security headers questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock. Security headers is handled at the boundary. The CLI validates input before anything reaches the storage layer, which keeps the core easy to test.
+
+
+## Troubleshooting the installer
+
+There is no background process. Everything related to troubleshooting the installer happens when a command runs, which keeps the data model predictable. Most troubleshooting the installer questions come down to the difference between local time and stored time. The CLI always stores what you saw on the clock.
