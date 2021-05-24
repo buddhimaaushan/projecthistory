@@ -99,3 +99,9 @@ def test_report_pagination_with_mixed_casing():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_sorting_with_defaults():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
