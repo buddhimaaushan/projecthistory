@@ -311,3 +311,12 @@ def test_storage_past_end_with_duplicate_tags(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_past_end_with_duplicate_tags.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_archived_project_with_null_values(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_archived_project_with_null_values.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
