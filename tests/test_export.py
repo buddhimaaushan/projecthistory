@@ -130,3 +130,11 @@ def test_export_zero_duration_after_a_reopen(tmp_path):
     path = tmp_path / "test_export_zero_duration_after_a_reopen.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_pagination_with_stale_cache(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_pagination_with_stale_cache.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
