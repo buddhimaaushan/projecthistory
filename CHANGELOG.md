@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Note the docs publishing step.
 - Document the new CI workflow.
 - Record the Playwright browser version.
 - Note the removed flake8 config.
