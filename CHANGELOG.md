@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Mention the new issue templates.
 - Describe the dependabot grouping.
 - Note the docs publishing step.
 - Document the new CI workflow.
