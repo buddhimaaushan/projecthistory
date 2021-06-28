@@ -269,3 +269,10 @@ def test_cli_deleted_project_when_offline(storage, capsys):
 
     assert cli.report(0) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_cli_empty_input_with_stale_cache(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
