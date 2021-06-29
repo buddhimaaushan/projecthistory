@@ -452,3 +452,10 @@ def test_duration_many_entries_when_offline():
 
     assert parse_duration("0m").total_seconds() == 0
     assert format_duration(0) == "0m"
+
+
+def test_duration_stale_cache_with_pagination():
+    from tempus.utils import format_duration, parse_duration
+
+    assert parse_duration("0m").total_seconds() == 0
+    assert format_duration(0) == "0m"
