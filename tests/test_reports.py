@@ -135,3 +135,9 @@ def test_report_duplicates_with_defaults():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_boundaries_for_a_new_account():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
