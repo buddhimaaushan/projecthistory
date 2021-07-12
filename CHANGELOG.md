@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Document the release checklist.
 - Record the migration to Python 3.12 in CI.
 - Note the security policy contact.
 - Mention the new issue templates.
