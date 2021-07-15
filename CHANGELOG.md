@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Note the new chart empty state.
 - Document the release checklist.
 - Record the migration to Python 3.12 in CI.
 - Note the security policy contact.
