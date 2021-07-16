@@ -81,3 +81,9 @@ def test_report_past_end_with_duplicate_tags():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_boundaries_with_unicode_input():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
