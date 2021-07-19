@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Describe the mobile table layout.
 - Note the new chart empty state.
 - Document the release checklist.
 - Record the migration to Python 3.12 in CI.
