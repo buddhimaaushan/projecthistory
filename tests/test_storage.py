@@ -365,3 +365,12 @@ def test_storage_timezone_on_an_empty_database(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_timezone_on_an_empty_database.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_sorting_for_an_archived_project(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_sorting_for_an_archived_project.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
