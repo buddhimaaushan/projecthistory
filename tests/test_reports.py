@@ -159,3 +159,9 @@ def test_report_defaults_after_a_reopen():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_deleted_project_with_missing_ids():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
