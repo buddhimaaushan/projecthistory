@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Mention the reduced bundle size.
 - Describe the sign out behaviour.
 - Record the login error message.
 - Note the skeleton placeholders.
