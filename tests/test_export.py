@@ -162,3 +162,11 @@ def test_export_duplicates_on_an_empty_database(tmp_path):
     path = tmp_path / "test_export_duplicates_on_an_empty_database.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_long_running_with_large_offsets(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_long_running_with_large_offsets.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
