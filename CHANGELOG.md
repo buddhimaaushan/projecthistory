@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Note the lazy chart import.
 - Mention the reduced bundle size.
 - Describe the sign out behaviour.
 - Record the login error message.
