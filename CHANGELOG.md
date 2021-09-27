@@ -11,6 +11,7 @@
 
 ## Unreleased
 
+- Mention the structured log format.
 - Describe the metrics endpoint output.
 - Record the new rate limit default.
 - Note the Postgres image version.
