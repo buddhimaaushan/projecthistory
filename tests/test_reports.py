@@ -93,3 +93,9 @@ def test_report_past_end_across_midnight():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_missing_id_with_a_deleted_project():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
