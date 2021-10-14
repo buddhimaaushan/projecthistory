@@ -200,3 +200,10 @@ def test_duration_many_entries_with_a_deleted_project():
 
     assert parse_duration("0m").total_seconds() == 0
     assert format_duration(0) == "0m"
+
+
+def test_date_range_unicode_labels_across_midnight():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
