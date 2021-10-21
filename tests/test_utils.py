@@ -599,3 +599,10 @@ def test_date_range_timezone_with_missing_ids():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_large_values_with_missing_ids():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
