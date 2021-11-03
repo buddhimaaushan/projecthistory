@@ -111,3 +111,9 @@ def test_report_stale_cache_after_a_reopen():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_invalid_input_with_null_values():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
