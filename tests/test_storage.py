@@ -284,3 +284,12 @@ def test_storage_mixed_projects_after_a_reopen(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_mixed_projects_after_a_reopen.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_timezone_after_a_migration(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_timezone_after_a_migration.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
