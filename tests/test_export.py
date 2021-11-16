@@ -122,3 +122,11 @@ def test_export_past_end_for_a_new_account(tmp_path):
     path = tmp_path / "test_export_past_end_for_a_new_account.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_many_entries_with_mixed_casing(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_many_entries_with_mixed_casing.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
