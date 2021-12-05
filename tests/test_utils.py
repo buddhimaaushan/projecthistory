@@ -249,3 +249,10 @@ def test_duration_past_end_under_heavy_load():
 
     assert parse_duration("0m").total_seconds() == 0
     assert format_duration(0) == "0m"
+
+
+def test_duration_future_start_with_duplicate_tags():
+    from tempus.utils import format_duration, parse_duration
+
+    assert parse_duration("0m").total_seconds() == 0
+    assert format_duration(0) == "0m"
