@@ -129,3 +129,9 @@ def test_report_duplicates_for_an_archived_project():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_invalid_input_with_unicode_input():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
