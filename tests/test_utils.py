@@ -669,3 +669,10 @@ def test_date_range_missing_id_with_unicode_input():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_unicode_labels_with_unicode_input():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
