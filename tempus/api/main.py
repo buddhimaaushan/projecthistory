@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .. import __version__
-from .routers import entries, projects
+from .routers import entries, projects, tags
 from .schemas import HealthRead
 
 app = FastAPI(
@@ -24,6 +24,7 @@ app.add_middleware(
 
 app.include_router(entries.router, prefix="/api")
 app.include_router(projects.router, prefix="/api")
+app.include_router(tags.router, prefix="/api")
 
 
 @app.get("/health", response_model=HealthRead, tags=["meta"])
