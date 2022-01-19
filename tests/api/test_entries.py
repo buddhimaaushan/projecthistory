@@ -1,0 +1,34 @@
+def test_create_and_list_entries(client):
+    response = client.post("/api/entries", json={"label": "writing", "project": "tempus", "tags": ["docs"]})
+    assert response.status_code == 201
+    entry = response.json()
+    assert entry["label"] == "writing"
+    assert entry["project"] == "tempus"
+    assert entry["tags"] == ["docs"]
+
+    listing = client.get("/api/entries").json()
+    assert len(listing) == 1
+
+
+def test_get_missing_entry_returns_404(client):
+    assert client.get("/api/entries/999").status_code == 404
+
+
+def test_stop_entry(client):
+    created = client.post("/api/entries", json={"label": "reading"}).json()
+    stopped = client.post("/api/entries/%d/stop" % created["id"])
+    assert stopped.status_code == 200
+    assert stopped.json()["is_running"] is False
+
+
+def test_only_one_running_timer(client):
+    client.post("/api/entries", json={"label": "first"})
+    second = client.post("/api/entries/start", json={"label": "second"})
+    assert second.status_code == 409
+
+
+def test_pagination(client):
+    for index in range(5):
+        client.post("/api/entries", json={"label": "entry %d" % index})
+    page = client.get("/api/entries", params={"limit": 2, "offset": 2}).json()
+    assert len(page) == 2
