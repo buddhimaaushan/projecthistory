@@ -1,0 +1,52 @@
+from datetime import datetime
+from typing import List, Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
+from sqlalchemy.orm import Session
+
+from ...services import entries as service
+from ..deps import get_db
+from ..schemas import EntryCreate, EntryRead, EntryUpdate
+
+router = APIRouter(prefix="/entries", tags=["entries"])
+
+
+@router.get("", response_model=List[EntryRead])
+def list_entries(
+    limit: int = Query(50, ge=0, le=200),
+    offset: int = Query(0, ge=0),
+    project: Optional[str] = None,
+    since: Optional[datetime] = None,
+    until: Optional[datetime] = None,
+    db: Session = Depends(get_db),
+):
+    return service.list_entries(db, limit=limit, offset=offset, project=project, since=since, until=until)
+
+
+@router.post("", response_model=EntryRead, status_code=status.HTTP_201_CREATED)
+def create_entry(payload: EntryCreate, db: Session = Depends(get_db)):
+    return service.create_entry(db, payload)
+
+
+@router.get("/{entry_id}", response_model=EntryRead)
+def get_entry(entry_id: int, db: Session = Depends(get_db)):
+    entry = service.get_entry(db, entry_id)
+    if entry is None:
+        raise HTTPException(status_code=404, detail="entry not found")
+    return entry
+
+
+@router.patch("/{entry_id}", response_model=EntryRead)
+def update_entry(entry_id: int, payload: EntryUpdate, db: Session = Depends(get_db)):
+    entry = service.get_entry(db, entry_id)
+    if entry is None:
+        raise HTTPException(status_code=404, detail="entry not found")
+    return service.update_entry(db, entry, payload)
+
+
+@router.delete("/{entry_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_entry(entry_id: int, db: Session = Depends(get_db)):
+    entry = service.get_entry(db, entry_id)
+    if entry is None:
+        raise HTTPException(status_code=404, detail="entry not found")
+    service.delete_entry(db, entry)
