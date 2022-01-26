@@ -28,6 +28,24 @@ def create_entry(payload: EntryCreate, db: Session = Depends(get_db)):
     return service.create_entry(db, payload)
 
 
+@router.post("/start", response_model=EntryRead, status_code=status.HTTP_201_CREATED)
+def start_timer(payload: EntryCreate, db: Session = Depends(get_db)):
+    current = service.running_entry(db)
+    if current is not None:
+        raise HTTPException(status_code=409, detail="a timer is already running")
+    if payload.end is not None:
+        raise HTTPException(status_code=422, detail="cannot start a finished entry")
+    return service.create_entry(db, payload)
+
+
+@router.post("/{entry_id}/stop", response_model=EntryRead)
+def stop_timer(entry_id: int, db: Session = Depends(get_db)):
+    entry = service.get_entry(db, entry_id)
+    if entry is None:
+        raise HTTPException(status_code=404, detail="entry not found")
+    return service.stop_entry(db, entry)
+
+
 @router.get("/{entry_id}", response_model=EntryRead)
 def get_entry(entry_id: int, db: Session = Depends(get_db)):
     entry = service.get_entry(db, entry_id)
