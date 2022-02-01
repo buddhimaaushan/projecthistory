@@ -1,7 +1,8 @@
 """HTTP API for tempus."""
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from .. import __version__
 from .routers import entries, projects, reports, tags
@@ -31,3 +32,11 @@ app.include_router(reports.router, prefix="/api")
 @app.get("/health", response_model=HealthRead, tags=["meta"])
 def health():
     return {"status": "ok", "version": __version__}
+
+
+@app.exception_handler(Exception)
+async def unhandled_exception(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "internal server error", "path": request.url.path},
+    )
