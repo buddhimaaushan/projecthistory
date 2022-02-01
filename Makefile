@@ -1,4 +1,4 @@
-.PHONY: install test lint format clean
+.PHONY: install test lint format api migrate clean
 
 install:
 	pip install -e .
@@ -6,6 +6,12 @@ install:
 
 test:
 	pytest
+
+api:
+	uvicorn tempus.api.main:app --reload
+
+migrate:
+	alembic upgrade head
 
 lint:
 	flake8 tempus tests
