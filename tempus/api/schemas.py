@@ -55,6 +55,7 @@ class EntryRead(EntryBase):
 
     class Config:
         orm_mode = True
+        json_encoders = {datetime: lambda value: value.replace(microsecond=0).isoformat() + "Z"}
 
 
 class SummaryRead(BaseModel):
