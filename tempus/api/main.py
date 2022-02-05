@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .. import __version__
+from .middleware import RequestContextMiddleware
 from .routers import entries, projects, reports, tags
 from .schemas import HealthRead
 
@@ -13,6 +14,8 @@ app = FastAPI(
     version=__version__,
     description="A small self-hosted time tracker.",
 )
+
+app.add_middleware(RequestContextMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
