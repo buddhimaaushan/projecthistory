@@ -1,0 +1,8 @@
+__pycache__
+*.pyc
+.venv
+.git
+web/node_modules
+web/dist
+tests
+docs
