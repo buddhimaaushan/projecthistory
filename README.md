@@ -31,11 +31,23 @@ $ tempus export --format csv ~/Downloads/tempus.csv
 
 See [docs/cli.md](docs/cli.md) for the full command list.
 
+## HTTP API
+
+```
+$ uvicorn tempus.api.main:app --reload
+$ curl localhost:8000/api/reports/summary
+```
+
+The API shares the SQLAlchemy models with the CLI through the `tempus.db`
+package. See [docs/api.md](docs/api.md).
+
 ## Layout
 
 | Path | Purpose |
 | --- | --- |
 | `tempus/` | Core package and CLI |
+| `tempus/api/` | FastAPI application |
+| `migrations/` | Alembic revisions |
 | `tests/` | pytest suite |
 | `docs/` | Hand written documentation |
 | `scripts/` | Maintenance scripts |
