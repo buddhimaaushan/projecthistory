@@ -32,3 +32,11 @@ def test_pagination(client):
         client.post("/api/entries", json={"label": "entry %d" % index})
     page = client.get("/api/entries", params={"limit": 2, "offset": 2}).json()
     assert len(page) == 2
+
+
+def test_update_entry(client):
+    created = client.post("/api/entries", json={"label": "old"}).json()
+    updated = client.patch("/api/entries/%d" % created["id"], json={"label": "new", "tags": ["Review"]})
+    assert updated.status_code == 200
+    assert updated.json()["label"] == "new"
+    assert updated.json()["tags"] == ["review"]
