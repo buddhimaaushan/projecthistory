@@ -291,3 +291,10 @@ def test_date_range_boundaries_with_large_offsets():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_archived_project_with_a_long_label():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
