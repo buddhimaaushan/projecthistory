@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0
+
+- Read-only AND writing HTTP API built on FastAPI and SQLAlchemy.
+- Alembic migrations, Docker image and compose file.
+- Start/stop endpoints enforce a single running timer.
+- Report summaries grouped by project and day.
+
+
 ## 0.4.0
 
 - `reports` and `export` modules keep the CLI thin.
