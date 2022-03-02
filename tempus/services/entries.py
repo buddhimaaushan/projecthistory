@@ -3,6 +3,7 @@
 from datetime import datetime
 from typing import List, Optional
 
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from ..db.models import Project, Tag, TimeEntry
@@ -15,7 +16,11 @@ def get_project(db: Session, name: Optional[str]) -> Optional[Project]:
     if project is None:
         project = Project(name=name)
         db.add(project)
-        db.flush()
+        try:
+            db.flush()
+        except IntegrityError:
+            db.rollback()
+            project = db.query(Project).filter(Project.name == name).one()
     return project
 
 
