@@ -340,3 +340,10 @@ def test_date_range_past_end_on_an_empty_database():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_archived_project_with_pagination():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
