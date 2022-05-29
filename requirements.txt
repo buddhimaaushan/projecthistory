@@ -1,6 +1,6 @@
 fastapi==0.70.0
 uvicorn[standard]==0.17.6
 SQLAlchemy==1.4.36
-alembic==1.9.2
+alembic==1.9.4
 pydantic==1.10.13
 python-dotenv==1.0.3
