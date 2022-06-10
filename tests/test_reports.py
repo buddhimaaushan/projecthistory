@@ -255,3 +255,9 @@ def test_report_mixed_projects_with_defaults():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_boundaries_with_unicode_input():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
