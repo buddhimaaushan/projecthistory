@@ -382,3 +382,10 @@ def test_date_range_partial_data_after_a_reopen():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_unicode_labels_with_a_deleted_project():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
