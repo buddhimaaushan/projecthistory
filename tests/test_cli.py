@@ -388,3 +388,10 @@ def test_cli_duplicates_with_missing_ids(storage, capsys):
 
     assert cli.report(0) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_cli_pagination_with_a_long_label(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
