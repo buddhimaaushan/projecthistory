@@ -267,3 +267,9 @@ def test_report_missing_id_under_heavy_load():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_very_long_label_across_timezones():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
