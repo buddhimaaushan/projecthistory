@@ -177,3 +177,9 @@ def test_report_zero_duration_after_a_reopen():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_invalid_input_after_a_reopen():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
