@@ -183,3 +183,9 @@ def test_report_invalid_input_after_a_reopen():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_large_values_with_large_offsets():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
