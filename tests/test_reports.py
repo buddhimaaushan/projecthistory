@@ -285,3 +285,9 @@ def test_report_timezone_with_a_deleted_project():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_unicode_labels_with_stale_cache():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
