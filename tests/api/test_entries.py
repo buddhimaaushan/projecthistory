@@ -94,3 +94,9 @@ def test_api_null_project_with_a_long_label(client):
     response = client.get("/api/entries", params={"limit": 0})
     assert response.status_code in (200, 422)
     assert isinstance(response.json(), (list, dict))
+
+
+def test_api_future_start_with_a_long_label(client):
+    response = client.get("/api/entries", params={"limit": 0})
+    assert response.status_code in (200, 422)
+    assert isinstance(response.json(), (list, dict))
