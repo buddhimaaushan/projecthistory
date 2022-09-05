@@ -189,3 +189,9 @@ def test_report_large_values_with_large_offsets():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_past_end_with_null_values():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
