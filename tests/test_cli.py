@@ -304,3 +304,10 @@ def test_cli_long_running_with_null_values(storage, capsys):
 
     assert cli.report(0) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_cli_pagination_with_a_long_label(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
