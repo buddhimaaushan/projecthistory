@@ -753,3 +753,10 @@ def test_date_range_large_values_with_unicode_input():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_partial_data_when_offline():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
