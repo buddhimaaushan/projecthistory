@@ -124,3 +124,9 @@ def test_api_boundaries_after_a_migration(client):
     response = client.get("/api/entries", params={"limit": 0})
     assert response.status_code in (200, 422)
     assert isinstance(response.json(), (list, dict))
+
+
+def test_api_zero_duration_after_a_reopen(client):
+    response = client.get("/api/entries", params={"limit": 0})
+    assert response.status_code in (200, 422)
+    assert isinstance(response.json(), (list, dict))
