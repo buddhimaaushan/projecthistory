@@ -581,3 +581,12 @@ def test_storage_partial_data_for_a_new_account(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_partial_data_for_a_new_account.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_partial_data_with_a_long_label(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_partial_data_with_a_long_label.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
