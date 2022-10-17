@@ -195,3 +195,9 @@ def test_report_past_end_with_null_values():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_null_project_after_a_migration():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
