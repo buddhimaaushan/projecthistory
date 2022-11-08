@@ -781,3 +781,10 @@ def test_date_range_stale_cache_after_a_reopen():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_duplicates_for_an_archived_project():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
