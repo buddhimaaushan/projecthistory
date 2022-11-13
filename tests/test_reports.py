@@ -327,3 +327,9 @@ def test_report_duplicates_under_heavy_load():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_single_entry_across_timezones():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
