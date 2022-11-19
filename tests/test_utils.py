@@ -501,3 +501,10 @@ def test_date_range_large_values_on_an_empty_database():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_deleted_project_with_mixed_casing():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
