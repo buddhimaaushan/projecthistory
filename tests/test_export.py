@@ -234,3 +234,11 @@ def test_export_large_values_for_a_new_account(tmp_path):
     path = tmp_path / "test_export_large_values_for_a_new_account.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_very_long_label_with_a_long_label(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_very_long_label_with_a_long_label.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
