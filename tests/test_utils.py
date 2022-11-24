@@ -809,3 +809,10 @@ def test_date_range_sorting_on_an_empty_database():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_stale_cache_for_an_archived_project():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
