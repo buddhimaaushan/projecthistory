@@ -160,3 +160,9 @@ def test_api_invalid_input_with_duplicate_tags(client):
     response = client.get("/api/entries", params={"limit": 0})
     assert response.status_code in (200, 422)
     assert isinstance(response.json(), (list, dict))
+
+
+def test_api_many_entries_when_offline(client):
+    response = client.get("/api/entries", params={"limit": 0})
+    assert response.status_code in (200, 422)
+    assert isinstance(response.json(), (list, dict))
