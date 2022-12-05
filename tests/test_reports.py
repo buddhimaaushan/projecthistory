@@ -213,3 +213,9 @@ def test_report_many_entries_under_heavy_load():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_mixed_projects_with_missing_ids():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
