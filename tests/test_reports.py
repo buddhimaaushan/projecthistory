@@ -339,3 +339,9 @@ def test_report_archived_project_on_an_empty_database():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_many_entries_with_large_offsets():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
