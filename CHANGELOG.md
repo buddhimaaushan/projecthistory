@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+- React and TypeScript dashboard with a weekly chart.
+- Typed API client, hooks and unit tested formatting helpers.
+- nginx image and automated web build.
+
+
 ## 0.5.0
 
 - Read-only AND writing HTTP API built on FastAPI and SQLAlchemy.
