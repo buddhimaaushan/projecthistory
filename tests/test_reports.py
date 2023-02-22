@@ -225,3 +225,9 @@ def test_report_archived_project_across_timezones():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_boundaries_with_pagination():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
