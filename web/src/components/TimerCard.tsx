@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Entry } from "../api/types";
 import { useTimer } from "../hooks/useTimer";
 import { formatClock, formatDuration } from "../lib/format";
@@ -14,6 +14,17 @@ export function TimerCard({ running, onRefresh }: Props) {
   const [project, setProject] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState(running?.duration_seconds ?? 0);
   const timer = useTimer(onRefresh);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "n" && document.activeElement?.tagName !== "INPUT") {
+        inputRef.current?.focus();
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   useEffect(() => {
     setElapsed(running?.duration_seconds ?? 0);
@@ -56,6 +67,7 @@ export function TimerCard({ running, onRefresh }: Props) {
         }}
       >
         <input
+          ref={inputRef}
           className="input"
           placeholder="What are you working on?"
           value={label}
