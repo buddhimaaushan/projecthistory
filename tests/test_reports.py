@@ -231,3 +231,9 @@ def test_report_boundaries_with_pagination():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_many_entries_with_duplicate_tags():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
