@@ -306,3 +306,11 @@ def test_export_past_end_with_null_values(tmp_path):
     path = tmp_path / "test_export_past_end_with_null_values.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_boundaries_with_a_deleted_project(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_boundaries_with_a_deleted_project.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
