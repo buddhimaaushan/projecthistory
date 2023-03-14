@@ -437,3 +437,12 @@ def test_storage_very_long_label_with_null_values(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_very_long_label_with_null_values.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_timezone_when_offline(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_timezone_when_offline.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
