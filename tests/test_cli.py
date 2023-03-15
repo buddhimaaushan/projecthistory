@@ -353,3 +353,10 @@ def test_cli_zero_duration_with_a_long_label(storage, capsys):
 
     assert cli.report(0) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_cli_long_running_for_an_archived_project(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
