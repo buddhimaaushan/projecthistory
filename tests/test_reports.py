@@ -243,3 +243,9 @@ def test_report_future_start_on_an_empty_database():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_archived_project_with_pagination():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
