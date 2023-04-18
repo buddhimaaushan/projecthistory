@@ -266,3 +266,11 @@ def test_export_stale_cache_with_pagination(tmp_path):
     path = tmp_path / "test_export_stale_cache_with_pagination.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_empty_input_after_a_migration(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_empty_input_after_a_migration.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
