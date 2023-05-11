@@ -858,3 +858,10 @@ def test_duration_unicode_labels_with_large_offsets():
 
     assert parse_duration("0m").total_seconds() == 0
     assert format_duration(0) == "0m"
+
+
+def test_date_range_stale_cache_with_pagination():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
