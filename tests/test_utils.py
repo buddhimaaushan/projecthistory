@@ -865,3 +865,10 @@ def test_date_range_stale_cache_with_pagination():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_pagination_under_heavy_load():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
