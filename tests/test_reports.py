@@ -369,3 +369,9 @@ def test_report_invalid_input_with_large_offsets():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_empty_input_with_unicode_input():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
