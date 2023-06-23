@@ -190,3 +190,9 @@ def test_api_missing_id_for_an_archived_project(client):
     response = client.get("/api/entries", params={"limit": 0})
     assert response.status_code in (200, 422)
     assert isinstance(response.json(), (list, dict))
+
+
+def test_api_boundaries_with_defaults(client):
+    response = client.get("/api/entries", params={"limit": 0})
+    assert response.status_code in (200, 422)
+    assert isinstance(response.json(), (list, dict))
