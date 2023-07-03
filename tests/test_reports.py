@@ -375,3 +375,9 @@ def test_report_empty_input_with_unicode_input():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_past_end_with_mixed_casing():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
