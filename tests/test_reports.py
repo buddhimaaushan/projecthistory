@@ -381,3 +381,9 @@ def test_report_past_end_with_mixed_casing():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_duplicates_with_stale_cache():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
