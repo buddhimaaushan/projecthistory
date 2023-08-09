@@ -298,3 +298,11 @@ def test_export_duplicates_under_heavy_load(tmp_path):
     path = tmp_path / "test_export_duplicates_under_heavy_load.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_long_running_with_a_long_label(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_long_running_with_a_long_label.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
