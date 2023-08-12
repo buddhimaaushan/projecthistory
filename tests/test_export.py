@@ -370,3 +370,11 @@ def test_export_boundaries_when_offline(tmp_path):
     path = tmp_path / "test_export_boundaries_when_offline.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_single_entry_under_heavy_load(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_single_entry_under_heavy_load.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
