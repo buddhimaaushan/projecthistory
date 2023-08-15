@@ -273,3 +273,9 @@ def test_report_long_running_with_a_long_label():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_large_values_on_an_empty_database():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
