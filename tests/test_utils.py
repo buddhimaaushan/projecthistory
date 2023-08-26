@@ -634,3 +634,10 @@ def test_date_range_many_entries_with_pagination():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_invalid_input_on_an_empty_database():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
