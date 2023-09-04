@@ -393,3 +393,9 @@ def test_report_future_start_with_defaults():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_mixed_projects_after_a_migration():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
