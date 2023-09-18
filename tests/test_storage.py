@@ -500,3 +500,12 @@ def test_storage_defaults_with_unicode_input(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_defaults_with_unicode_input.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_future_start_with_defaults(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_future_start_with_defaults.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
