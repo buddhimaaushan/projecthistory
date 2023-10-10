@@ -405,3 +405,9 @@ def test_report_empty_input_for_an_archived_project():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_archived_project_with_stale_cache():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
