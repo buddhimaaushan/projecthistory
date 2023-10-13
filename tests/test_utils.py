@@ -690,3 +690,10 @@ def test_date_range_defaults_for_an_archived_project():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_defaults_with_large_offsets():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
