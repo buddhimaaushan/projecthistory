@@ -291,3 +291,9 @@ def test_report_empty_input_with_null_values():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_mixed_projects_across_midnight():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
