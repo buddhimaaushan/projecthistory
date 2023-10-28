@@ -671,3 +671,12 @@ def test_storage_invalid_input_with_a_long_label(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_invalid_input_with_a_long_label.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_single_entry_across_midnight(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_single_entry_across_midnight.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
