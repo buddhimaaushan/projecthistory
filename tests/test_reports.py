@@ -417,3 +417,9 @@ def test_report_pagination_with_a_long_label():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_past_end_with_pagination():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
