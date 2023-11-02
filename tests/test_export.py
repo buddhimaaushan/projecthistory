@@ -338,3 +338,11 @@ def test_export_missing_id_with_duplicate_tags(tmp_path):
     path = tmp_path / "test_export_missing_id_with_duplicate_tags.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_sorting_when_offline(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_sorting_when_offline.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
