@@ -346,3 +346,11 @@ def test_export_sorting_when_offline(tmp_path):
     path = tmp_path / "test_export_sorting_when_offline.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_zero_duration_for_an_archived_project(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_zero_duration_for_an_archived_project.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
