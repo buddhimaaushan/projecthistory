@@ -963,3 +963,10 @@ def test_date_range_sorting_with_large_offsets():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_invalid_input_with_a_deleted_project():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
