@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 
 from .. import __version__
 from .middleware import RequestContextMiddleware
-from .routers import entries, projects, reports, tags
+from .routers import auth, entries, projects, reports, tags
 from .schemas import HealthRead
 
 app = FastAPI(
@@ -26,6 +26,7 @@ app.add_middleware(
 )
 
 
+app.include_router(auth.router, prefix="/api")
 app.include_router(entries.router, prefix="/api")
 app.include_router(projects.router, prefix="/api")
 app.include_router(tags.router, prefix="/api")
