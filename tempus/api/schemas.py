@@ -6,6 +6,27 @@ from typing import List, Optional
 from pydantic import BaseModel, Field, validator
 
 
+class UserCreate(BaseModel):
+    email: str = Field(..., regex="^[^@]+@[^@]+\\.[^@]+$")
+    password: str = Field(..., min_length=8, max_length=128)
+    display_name: str = Field("", max_length=120)
+
+
+class UserRead(BaseModel):
+    id: int
+    email: str
+    display_name: str
+    is_active: bool
+
+    class Config:
+        orm_mode = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
 class ProjectCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=120)
     colour: str = Field("#4f46e5", regex="^#[0-9a-fA-F]{6}$")
