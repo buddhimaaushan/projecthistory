@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 from ..db.models import Project, TimeEntry
 
 
-def summary(db: Session, since: Optional[datetime] = None, until: Optional[datetime] = None):
-    query = db.query(TimeEntry)
+def summary(db: Session, user_id: int, since: Optional[datetime] = None, until: Optional[datetime] = None):
+    query = db.query(TimeEntry).filter(TimeEntry.user_id == user_id)
     if since:
         query = query.filter(TimeEntry.start >= since)
     if until:
