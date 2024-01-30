@@ -9,6 +9,13 @@ export interface Entry {
   is_running: boolean;
 }
 
+export interface User {
+  id: number;
+  email: string;
+  display_name: string;
+  is_active: boolean;
+}
+
 export interface Project {
   id: number;
   name: string;
