@@ -1,4 +1,3 @@
-import os
 import sys
 from pathlib import Path
 
@@ -13,10 +12,14 @@ from tempus.api.deps import get_db
 from tempus.api.main import app
 from tempus.db.base import Base
 
+USER = {"email": "dev@example.com", "password": "correct-horse", "display_name": "Dev"}
+
 
 @pytest.fixture
-def client(tmp_path):
-    engine = create_engine("sqlite:///%s" % (tmp_path / "test.db"), connect_args={"check_same_thread": False})
+def anon_client(tmp_path):
+    engine = create_engine(
+        "sqlite:///%s" % (tmp_path / "test.db"), connect_args={"check_same_thread": False}
+    )
     Base.metadata.create_all(engine)
     TestingSession = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
@@ -31,3 +34,13 @@ def client(tmp_path):
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def client(anon_client):
+    assert anon_client.post("/api/auth/register", json=USER).status_code == 201
+    token = anon_client.post(
+        "/api/auth/login", data={"username": USER["email"], "password": USER["password"]}
+    ).json()["access_token"]
+    anon_client.headers.update({"Authorization": "Bearer " + token})
+    return anon_client
