@@ -7,7 +7,14 @@ const links = [
   { to: "/settings", label: "Settings" },
 ];
 
-export function Layout() {
+import type { User } from "../api/types";
+
+interface Props {
+  user: User | null;
+  onLogout: () => void;
+}
+
+export function Layout({ user, onLogout }: Props) {
   return (
     <div className="app">
       <header className="topbar">
@@ -24,6 +31,14 @@ export function Layout() {
             </NavLink>
           ))}
         </nav>
+        {user ? (
+          <div className="account">
+            <span>{user.display_name || user.email}</span>
+            <button className="link-button" onClick={onLogout}>
+              Sign out
+            </button>
+          </div>
+        ) : null}
       </header>
       <main>
         <Outlet />
