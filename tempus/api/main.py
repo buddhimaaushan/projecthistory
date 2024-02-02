@@ -1,12 +1,16 @@
 """HTTP API for tempus."""
 
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .. import __version__
 from .middleware import RequestContextMiddleware
 from .routers import auth, entries, projects, reports, tags
+from sqlalchemy import text
+from sqlalchemy.orm import Session
+
+from .deps import get_db
 from .schemas import HealthRead
 
 app = FastAPI(
@@ -34,7 +38,8 @@ app.include_router(reports.router, prefix="/api")
 
 
 @app.get("/health", response_model=HealthRead, tags=["meta"])
-def health():
+def health(db: Session = Depends(get_db)):
+    db.execute(text("SELECT 1"))
     return {"status": "ok", "version": __version__}
 
 
