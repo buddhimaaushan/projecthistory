@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: tempus
+      POSTGRES_USER: tempus
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tempus"]
+      interval: 10s
+      retries: 5
+
+  api:
+    build: .
+    restart: unless-stopped
+    environment:
+      TEMPUS_DATABASE_URL: postgresql+psycopg2://tempus:${POSTGRES_PASSWORD}@db:5432/tempus
+      TEMPUS_SECRET_KEY: ${TEMPUS_SECRET_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn tempus.api.main:app --host 0.0.0.0 --port 8000 --workers 2"
+
+  web:
+    build: ./web
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  pg-data:
