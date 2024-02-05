@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0
+
+- Email and password accounts with JWT access tokens.
+- Entries, projects and reports are scoped to the signed in user.
+- Login screen and protected routes in the dashboard.
+- PostgreSQL compose stack, reverse proxy sample and backup script.
+
+
 ## 0.6.0
 
 - React and TypeScript dashboard with a weekly chart.
