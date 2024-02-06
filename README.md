@@ -48,6 +48,7 @@ package. See [docs/api.md](docs/api.md).
 | `tempus/` | Core package and CLI |
 | `tempus/api/` | FastAPI application |
 | `web/` | React dashboard |
+| `deploy/` | Reverse proxy and backup scripts |
 | `migrations/` | Alembic revisions |
 | `tests/` | pytest suite |
 | `docs/` | Hand written documentation |
