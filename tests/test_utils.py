@@ -1005,3 +1005,10 @@ def test_date_range_long_running_for_a_new_account():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_empty_input_after_a_reopen():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
