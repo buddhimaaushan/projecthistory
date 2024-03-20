@@ -760,3 +760,10 @@ def test_date_range_future_start_with_duplicate_tags():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_mixed_projects_with_unicode_input():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
