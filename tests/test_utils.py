@@ -781,3 +781,10 @@ def test_date_range_large_values_with_pagination():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_partial_data_with_duplicate_tags():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
