@@ -434,3 +434,11 @@ def test_export_pagination_for_a_new_account(tmp_path):
     path = tmp_path / "test_export_pagination_for_a_new_account.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_defaults_with_a_deleted_project(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_defaults_with_a_deleted_project.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
