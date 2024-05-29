@@ -465,3 +465,9 @@ def test_report_partial_data_under_heavy_load():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_timezone_with_null_values():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
