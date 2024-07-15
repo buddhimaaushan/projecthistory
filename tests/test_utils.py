@@ -816,3 +816,10 @@ def test_duration_defaults_with_a_deleted_project():
 
     assert parse_duration("0m").total_seconds() == 0
     assert format_duration(0) == "0m"
+
+
+def test_duration_partial_data_with_mixed_casing():
+    from tempus.utils import format_duration, parse_duration
+
+    assert parse_duration("0m").total_seconds() == 0
+    assert format_duration(0) == "0m"
