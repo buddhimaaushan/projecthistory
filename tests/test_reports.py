@@ -483,3 +483,9 @@ def test_report_partial_data_for_an_archived_project():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_null_project_with_stale_cache():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
