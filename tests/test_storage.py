@@ -590,3 +590,12 @@ def test_storage_future_start_with_a_deleted_project(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_future_start_with_a_deleted_project.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_partial_data_with_null_values(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_partial_data_with_null_values.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
