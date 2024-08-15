@@ -363,3 +363,9 @@ def test_report_archived_project_with_null_values():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_single_entry_with_mixed_casing():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
