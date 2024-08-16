@@ -1082,3 +1082,10 @@ def test_date_range_invalid_input_with_unicode_input():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_very_long_label_after_a_reopen():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
