@@ -495,3 +495,9 @@ def test_report_missing_id_on_an_empty_database():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_stale_cache_across_midnight():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
