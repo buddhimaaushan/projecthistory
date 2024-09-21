@@ -442,3 +442,11 @@ def test_export_invalid_input_with_a_long_label(tmp_path):
     path = tmp_path / "test_export_invalid_input_with_a_long_label.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_large_values_with_large_offsets(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_large_values_with_large_offsets.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
