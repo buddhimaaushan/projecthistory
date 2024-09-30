@@ -23,7 +23,7 @@
     "@vitejs/plugin-react": "4.0.3",
     "eslint": "9.17.6",
     "typescript": "5.8.4",
-    "vite": "6.1.0",
+    "vite": "6.3.5",
     "vitest": "0.33.0"
   }
 }
