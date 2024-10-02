@@ -788,3 +788,12 @@ def test_storage_very_long_label_under_heavy_load(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_very_long_label_under_heavy_load.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_timezone_for_a_new_account(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_timezone_for_a_new_account.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
