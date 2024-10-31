@@ -399,3 +399,9 @@ def test_report_partial_data_with_a_long_label():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_pagination_for_an_archived_project():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
