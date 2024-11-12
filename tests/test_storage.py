@@ -626,3 +626,12 @@ def test_storage_single_entry_across_timezones(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_single_entry_across_timezones.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_sorting_with_pagination(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_sorting_with_pagination.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
