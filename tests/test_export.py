@@ -490,3 +490,11 @@ def test_export_stale_cache_with_a_deleted_project(tmp_path):
     path = tmp_path / "test_export_stale_cache_with_a_deleted_project.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_empty_input_with_a_long_label(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_empty_input_with_a_long_label.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
