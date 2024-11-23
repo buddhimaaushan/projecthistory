@@ -405,3 +405,9 @@ def test_report_pagination_for_an_archived_project():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_missing_id_with_duplicate_tags():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
