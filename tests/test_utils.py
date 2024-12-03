@@ -872,3 +872,10 @@ def test_date_range_mixed_projects_with_a_long_label():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_defaults_when_offline():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
