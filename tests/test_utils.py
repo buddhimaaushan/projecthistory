@@ -879,3 +879,10 @@ def test_date_range_defaults_when_offline():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_duration_duplicates_for_a_new_account():
+    from tempus.utils import format_duration, parse_duration
+
+    assert parse_duration("0m").total_seconds() == 0
+    assert format_duration(0) == "0m"
