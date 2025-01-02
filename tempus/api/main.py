@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .. import __version__
+from ..logging import configure_logging
 from .middleware import RequestContextMiddleware
 from .routers import auth, entries, projects, reports, tags
 from sqlalchemy import text
@@ -12,6 +13,8 @@ from sqlalchemy.orm import Session
 
 from .deps import get_db
 from .schemas import HealthRead
+
+configure_logging()
 
 app = FastAPI(
     title="tempus",
