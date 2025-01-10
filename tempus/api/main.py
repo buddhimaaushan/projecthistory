@@ -7,6 +7,9 @@ from fastapi.responses import JSONResponse
 from .. import __version__
 from ..logging import configure_logging
 from .middleware import RequestContextMiddleware
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+from starlette.responses import Response
+
 from .routers import auth, entries, projects, reports, tags
 from sqlalchemy import text
 from sqlalchemy.orm import Session
@@ -38,6 +41,11 @@ app.include_router(entries.router, prefix="/api")
 app.include_router(projects.router, prefix="/api")
 app.include_router(tags.router, prefix="/api")
 app.include_router(reports.router, prefix="/api")
+
+
+@app.get("/metrics", include_in_schema=False)
+def metrics():
+    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
 @app.get("/health", response_model=HealthRead, tags=["meta"])
