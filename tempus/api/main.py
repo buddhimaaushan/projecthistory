@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 from .. import __version__
 from ..logging import configure_logging
 from .middleware import RequestContextMiddleware
+from .ratelimit import RateLimitMiddleware
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from starlette.responses import Response
 
@@ -25,6 +26,7 @@ app = FastAPI(
     description="A small self-hosted time tracker.",
 )
 
+app.add_middleware(RateLimitMiddleware)
 app.add_middleware(RequestContextMiddleware)
 
 app.add_middleware(
