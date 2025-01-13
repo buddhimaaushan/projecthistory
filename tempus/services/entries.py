@@ -7,6 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from ..db.models import Project, Tag, TimeEntry
+from .cache import summary_cache
 
 
 def get_project(db: Session, name: Optional[str], user_id: int) -> Optional[Project]:
@@ -71,6 +72,7 @@ def create_entry(db: Session, data, user_id: int) -> TimeEntry:
     db.add(entry)
     db.commit()
     db.refresh(entry)
+    summary_cache.invalidate()
     return entry
 
 
@@ -79,6 +81,7 @@ def stop_entry(db: Session, entry: TimeEntry) -> TimeEntry:
         entry.end = datetime.utcnow()
         db.commit()
         db.refresh(entry)
+        summary_cache.invalidate()
     return entry
 
 
@@ -91,12 +94,14 @@ def update_entry(db: Session, entry: TimeEntry, data, user_id: int) -> TimeEntry
         entry.tags = sync_tags(db, data.tags)
     db.commit()
     db.refresh(entry)
+    summary_cache.invalidate()
     return entry
 
 
 def delete_entry(db: Session, entry: TimeEntry) -> None:
     db.delete(entry)
     db.commit()
+    summary_cache.invalidate()
 
 
 def running_entry(db: Session, user_id: int) -> Optional[TimeEntry]:
