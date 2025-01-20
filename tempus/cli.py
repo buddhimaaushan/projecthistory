@@ -1,25 +1,24 @@
 """Command line interface for tempus."""
 
-import argparse
 import json
 import os
-import sys
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from typing import List, Optional
+
+import typer
+from rich.console import Console
+from rich.table import Table
 
 from . import __version__
 from .config import Config
 from .export import export_csv, export_json, import_json
 from .models import Entry
-from .reports import (
-    filter_entries,
-    group_by_day,
-    group_by_project,
-    summarise,
-    week_bounds,
-)
+from .reports import filter_entries, group_by_day, group_by_project, summarise, week_bounds
 from .storage import JsonStorage, SqliteStorage, add_many
 from .utils import format_duration, parse_date, parse_duration
+
+app = typer.Typer(help="Track time from the terminal.", no_args_is_help=True)
+console = Console()
 
 DEFAULT_PATH = os.environ.get("TEMPUS_FILE", os.path.expanduser("~/.tempus.json"))
 
@@ -35,12 +34,33 @@ def format_delta(delta):
     return format_duration(delta.total_seconds())
 
 
-def start(label: str, tags: str = "", project: Optional[str] = None) -> int:
+def _version_callback(value: bool) -> None:
+    if value:
+        typer.echo("tempus " + __version__)
+        raise typer.Exit()
+
+
+@app.callback()
+def main(
+    version: Optional[bool] = typer.Option(
+        None, "--version", callback=_version_callback, is_eager=True, help="Show the version and exit."
+    ),
+) -> None:
+    """Small self-hosted time tracker."""
+
+
+@app.command("start")
+def start(
+    label: str = typer.Argument(..., help="What are you working on?"),
+    project: Optional[str] = typer.Option(None, "--project", "-p"),
+    tags: str = typer.Option("", "--tags", "-t", help="Comma separated tags."),
+) -> None:
+    """Start a timer."""
     storage = get_storage()
     entries = storage.all()
     if entries and entries[-1].is_running:
-        print("already tracking: %s" % entries[-1].label)
-        return 1
+        console.print("already tracking: %s" % entries[-1].label, style="yellow")
+        raise typer.Exit(code=1)
     storage.add(
         Entry(
             label=label,
@@ -49,248 +69,183 @@ def start(label: str, tags: str = "", project: Optional[str] = None) -> int:
             start=datetime.now(),
         )
     )
-    print("started: %s" % label)
-    return 0
+    console.print("started: %s" % label, style="green")
 
 
-def stop() -> int:
+@app.command("stop")
+def stop() -> None:
+    """Stop the running timer."""
     storage = get_storage()
     entries = storage.all()
     if not entries or not entries[-1].is_running:
-        print("nothing to stop")
-        return 1
+        console.print("nothing to stop", style="yellow")
+        raise typer.Exit(code=1)
     entry = entries[-1]
     entry.end = datetime.now()
     storage.update(entry)
-    print("stopped: %s (%s)" % (entry.label, format_delta(entry.duration)))
-    return 0
+    console.print("stopped: %s (%s)" % (entry.label, format_delta(entry.duration)), style="green")
 
 
-def status() -> int:
+@app.command("status")
+def status() -> None:
+    """Show the running entry."""
     entries = get_storage().all()
     if not entries:
-        print('no entries yet - try: tempus start "something"')
-        return 0
+        console.print('no entries yet - try: tempus start "something"', style="yellow")
+        return
     entry = entries[-1]
     if entry.is_running:
-        print("%s (running %s)" % (entry.label, format_delta(entry.duration)))
+        console.print("%s (running %s)" % (entry.label, format_delta(entry.duration)))
     else:
-        print("%s (last entry, %s)" % (entry.label, entry.start.strftime("%Y-%m-%d %H:%M")))
-    return 0
+        console.print("%s (last entry, %s)" % (entry.label, entry.start.strftime("%Y-%m-%d %H:%M")))
 
 
-def list_entries(limit: int = 10) -> int:
-    entries = get_storage().all()
-    for entry in entries[-limit:]:
-        print(
-            "%s  %-30s %-10s %s"
-            % (
-                entry.start.strftime("%Y-%m-%d %H:%M"),
-                entry.label,
-                format_delta(entry.duration),
-                "running" if entry.is_running else "",
-            )
+@app.command("list")
+def list_entries(limit: int = typer.Option(10, "--limit", "-n")) -> None:
+    """Show the most recent entries."""
+    entries = get_storage().all()[-limit:]
+    table = Table("Start", "Label", "Project", "Duration", "Running")
+    for entry in entries:
+        table.add_row(
+            entry.start.strftime("%Y-%m-%d %H:%M"),
+            entry.label,
+            entry.project or "",
+            format_delta(entry.duration),
+            "yes" if entry.is_running else "",
         )
-    return 0
+    console.print(table)
 
 
-def delete(index: int) -> int:
+@app.command("add")
+def add_manual(
+    label: str,
+    duration: str = typer.Option(..., "--duration", "-d"),
+    at: Optional[str] = typer.Option(None, "--at"),
+    project: Optional[str] = typer.Option(None, "--project", "-p"),
+) -> None:
+    """Record an entry after the fact."""
+    length = parse_duration(duration)
+    started = datetime.fromisoformat(at) if at else datetime.now() - length
+    get_storage().add(Entry(label=label, project=project, start=started, end=started + length))
+    console.print("added: %s (%s)" % (label, duration), style="green")
+
+
+@app.command("delete")
+def delete(index: int) -> None:
+    """Remove an entry by index."""
     storage = get_storage()
     entries = storage.all()
     try:
         removed = entries[index]
     except IndexError:
-        print("no entry at index %d" % index)
-        return 1
+        console.print("no entry at index %d" % index, style="red")
+        raise typer.Exit(code=1)
     storage.delete(removed.id if removed.id is not None else index)
-    print("deleted: %s" % removed.label)
-    return 0
+    console.print("deleted: %s" % removed.label)
 
 
-def edit(index: int, label: Optional[str] = None, project: Optional[str] = None) -> int:
-    storage = get_storage()
-    entries = storage.all()
-    try:
-        entry = entries[index]
-    except IndexError:
-        print("no entry at index %d" % index)
-        return 1
-    if label:
-        entry.label = label
-    if project is not None:
-        entry.project = project
-    storage.update(entry)
-    print("updated entry %d" % index)
-    return 0
-
-
-def add_manual(label: str, duration: str, start: Optional[str] = None, project: Optional[str] = None) -> int:
-    storage = get_storage()
-    length = parse_duration(duration)
-    started = datetime.fromisoformat(start) if start else datetime.now() - length
-    storage.add(Entry(label=label, project=project, start=started, end=started + length))
-    print("added: %s (%s)" % (label, duration))
-    return 0
-
-
-def report(days: int = 1, by_project: bool = False, as_json: bool = False, since=None, until=None) -> int:
+@app.command("report")
+def report(
+    days: int = typer.Option(1, "--days", "-n"),
+    by_project: bool = typer.Option(False, "--by-project"),
+    since: Optional[str] = typer.Option(None, "--from"),
+    until: Optional[str] = typer.Option(None, "--to"),
+    as_json: bool = typer.Option(False, "--json"),
+) -> None:
+    """Totals for a range of days."""
     start = parse_date(since) if since else datetime.now() - timedelta(days=days)
     end = parse_date(until) if until else None
     entries = filter_entries(get_storage().all(), start=start, end=end)
     if as_json:
-        print(json.dumps(summarise(entries), default=str, indent=2))
-        return 0
+        typer.echo(json.dumps(summarise(entries), default=str))
+        return
+    table = Table("Label", "Project", "Duration")
+    for entry in entries:
+        if not by_project:
+            table.add_row(entry.label, entry.project or "", format_delta(entry.duration))
     if by_project:
         for name, seconds in group_by_project(entries).items():
-            print("%-30s %s" % (name, format_duration(seconds)))
-    else:
-        for entry in entries:
-            print("%-30s %s" % (entry.label, format_delta(entry.duration)))
-    summary = summarise(entries)
-    print("-" * 40)
-    print("%-30s %s" % ("total", format_duration(summary["total_seconds"])))
-    return 0
+            table.add_row(name, "", format_duration(seconds))
+    console.print(table)
+    console.print("total: %s" % format_duration(summarise(entries)["total_seconds"]), style="bold")
 
 
-def today() -> int:
-    return report(days=1)
-
-
-def week() -> int:
+@app.command("week")
+def week() -> None:
+    """One line per recorded day."""
     config = Config.load()
+    table = Table("Day", "Total")
     for day, entries in group_by_day(get_storage().all()).items():
-        print("%s  %s" % (day, format_duration(summarise(entries)["total_seconds"])))
-    start, end = week_bounds(date.today(), config.week_starts_on)
-    print("week %s..%s" % (start, end))
-    return 0
+        table.add_row(str(day), format_duration(summarise(entries)["total_seconds"]))
+    console.print(table)
+    start, end = week_bounds(datetime.now().date(), config.week_starts_on)
+    console.print("week %s..%s" % (start, end))
 
 
-def show_config() -> int:
-    config = Config.load()
-    print("database = %s" % config.database)
-    print("default_project = %s" % config.default_project)
-    print("week_starts_on = %s" % config.week_starts_on)
-    print("weekly_target = %s" % config.weekly_target)
-    return 0
-
-
-def migrate() -> int:
-    source = JsonStorage(DEFAULT_PATH)
-    target = SqliteStorage(Config.load().database)
-    count = add_many(target, source.all())
-    print("migrated %d entries to %s" % (count, target.connection))
-    return 0
-
-
-
-
-def export_command(fmt: str, path: str) -> int:
-    entries = get_storage().all()
-    if fmt == "csv":
-        export_csv(entries, path)
-    else:
-        with open(path, "w") as handle:
-            handle.write(export_json(entries))
-    print("exported %d entries to %s" % (len(entries), path))
-    return 0
-
-
-def import_command(path: str) -> int:
-    with open(path) as handle:
-        entries = import_json(handle.read())
-    storage = get_storage()
-    for entry in entries:
-        storage.add(entry)
-    print("imported %d entries from %s" % (len(entries), path))
-    return 0
-
-
-def summary(days: int = 7) -> int:
+@app.command("summary")
+def summary(days: int = typer.Option(7, "--days", "-n")) -> None:
+    """Compact JSON totals for scripts."""
     entries = filter_entries(get_storage().all(), start=datetime.now() - timedelta(days=days))
     data = summarise(entries)
     target = Config.load().weekly_target
     if target:
         data["target_seconds"] = target * 3600
         data["remaining_seconds"] = max(0, target * 3600 - data["total_seconds"])
-    print(json.dumps(data, default=str))
-    return 0
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="tempus", description="Track time from the terminal")
-    parser.add_argument("--version", action="version", version="tempus " + __version__)
-    sub = parser.add_subparsers(dest="command", required=True)
-
-    p_start = sub.add_parser("start", help="start a new entry")
-    p_start.add_argument("label")
-    p_start.add_argument("--tags", default="")
-    p_start.add_argument("--project", default=None)
-
-    sub.add_parser("stop", help="stop the running entry")
-    sub.add_parser("status", help="show the running entry")
-    sub.add_parser("list", help="show the most recent entries")
-    sub.add_parser("today", help="report for the current day")
-    sub.add_parser("week", help="totals for every recorded day")
-    sub.add_parser("config", help="print the resolved configuration")
-
-    p_summary = sub.add_parser("summary", help="compact totals for scripts")
-    p_summary.add_argument("--days", type=int, default=7)
-    sub.add_parser("migrate", help="move entries from JSON to SQLite")
-
-    p_add = sub.add_parser("add", help="record an entry after the fact")
-    p_add.add_argument("label")
-    p_add.add_argument("--duration", required=True)
-    p_add.add_argument("--at", default=None)
-    p_add.add_argument("--project", default=None)
-
-    p_delete = sub.add_parser("delete", help="remove an entry by index")
-    p_delete.add_argument("index", type=int)
-
-    p_edit = sub.add_parser("edit", help="change an existing entry")
-    p_edit.add_argument("index", type=int)
-    p_edit.add_argument("--label")
-    p_edit.add_argument("--project")
-
-    p_export = sub.add_parser("export", help="write entries to a file")
-    p_export.add_argument("--format", choices=["csv", "json"], default="csv")
-    p_export.add_argument("path")
-
-    p_import = sub.add_parser("import", help="load entries from a JSON export")
-    p_import.add_argument("path")
-
-    p_report = sub.add_parser("report", help="show totals for the last N days")
-    p_report.add_argument("--days", type=int, default=1)
-    p_report.add_argument("--by-project", action="store_true")
-    p_report.add_argument("--json", action="store_true")
-    p_report.add_argument("--from", dest="since", default=None)
-    p_report.add_argument("--to", dest="until", default=None)
-
-    return parser
+    typer.echo(json.dumps(data, default=str))
 
 
-HANDLERS = {
-    "start": lambda args: start(args.label, args.tags, args.project),
-    "stop": lambda args: stop(),
-    "status": lambda args: status(),
-    "list": lambda args: list_entries(),
-    "delete": lambda args: delete(args.index),
-    "edit": lambda args: edit(args.index, args.label, args.project),
-    "add": lambda args: add_manual(args.label, args.duration, args.at, args.project),
-    "report": lambda args: report(args.days, args.by_project, args.json, args.since, args.until),
-    "today": lambda args: today(),
-    "week": lambda args: week(),
-    "config": lambda args: show_config(),
-    "summary": lambda args: summary(args.days),
-    "migrate": lambda args: migrate(),
-    "export": lambda args: export_command(args.format, args.path),
-    "import": lambda args: import_command(args.path),
-}
+@app.command("export")
+def export(
+    path: str,
+    fmt: str = typer.Option("csv", "--format", "-f"),
+) -> None:
+    """Write entries to a file."""
+    entries = get_storage().all()
+    if fmt == "csv":
+        export_csv(entries, path)
+    else:
+        with open(path, "w") as handle:
+            handle.write(export_json(entries))
+    console.print("exported %d entries to %s" % (len(entries), path), style="green")
 
 
-def main(argv: Optional[List[str]] = None) -> int:
-    parser = build_parser()
-    args = parser.parse_args(argv)
-    return HANDLERS[args.command](args)
+@app.command("import")
+def import_entries(path: str) -> None:
+    """Load entries from a JSON export."""
+    with open(path) as handle:
+        entries = import_json(handle.read())
+    count = add_many(get_storage(), entries)
+    console.print("imported %d entries from %s" % (count, path), style="green")
 
 
-if __name__ == "__main__":
-    sys.exit(main())
+@app.command("config")
+def show_config() -> None:
+    """Print the resolved configuration."""
+    config = Config.load()
+    for key, value in (
+        ("database", config.database),
+        ("default_project", config.default_project),
+        ("week_starts_on", config.week_starts_on),
+        ("weekly_target", config.weekly_target),
+    ):
+        console.print("%s = %s" % (key, value))
 
+
+@app.command("migrate")
+def migrate() -> None:
+    """Move entries from JSON to SQLite."""
+    target = SqliteStorage(Config.load().database)
+    count = add_many(target, JsonStorage(DEFAULT_PATH).all())
+    console.print("migrated %d entries" % count, style="green")
+
+
+@app.command("api")
+def api(
+    host: str = typer.Option("127.0.0.1", "--host"),
+    port: int = typer.Option(8000, "--port"),
+    reload: bool = typer.Option(False, "--reload"),
+) -> None:
+    """Run the HTTP API with uvicorn."""
+    import uvicorn
+
+    uvicorn.run("tempus.api.main:app", host=host, port=port, reload=reload)
