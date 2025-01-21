@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { EntryList } from "../components/EntryList";
 import { ErrorBanner } from "../components/ErrorBanner";
+import { Skeleton } from "../components/Skeleton";
 import { TimerCard } from "../components/TimerCard";
 import { useEntries } from "../hooks/useEntries";
 import { formatDuration } from "../lib/format";
@@ -31,7 +32,7 @@ export function Dashboard() {
       </section>
       <section className="card">
         <h2>Recent entries</h2>
-        {loading ? <p className="hint">Loading…</p> : null}
+        {loading ? <Skeleton rows={4} /> : null}
         <ErrorBanner message={error} />
         <EntryList entries={entries} onDelete={() => reload()} />
       </section>
