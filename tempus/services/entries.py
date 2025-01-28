@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from ..db.models import Project, Tag, TimeEntry
 from .cache import summary_cache
@@ -46,7 +46,12 @@ def list_entries(
     since: Optional[datetime] = None,
     until: Optional[datetime] = None,
 ) -> List[TimeEntry]:
-    query = db.query(TimeEntry).filter(TimeEntry.user_id == user_id).order_by(TimeEntry.start.desc())
+    query = (
+        db.query(TimeEntry)
+        .options(joinedload(TimeEntry.project))
+        .filter(TimeEntry.user_id == user_id)
+        .order_by(TimeEntry.start.desc())
+    )
     if project:
         query = query.join(Project).filter(Project.name == project, Project.user_id == user_id)
     if since:
