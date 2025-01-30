@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { OfflineBanner } from "./OfflineBanner";
 
 const links = [
   { to: "/", label: "Dashboard", end: true },
@@ -41,6 +42,7 @@ export function Layout({ user, onLogout }: Props) {
         ) : null}
       </header>
       <main>
+        <OfflineBanner />
         <Outlet />
       </main>
     </div>
