@@ -2,7 +2,7 @@ from collections import defaultdict
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from ..db.models import Project, TimeEntry
 from .cache import summary_cache
@@ -13,7 +13,7 @@ def summary(db: Session, user_id: int, since: Optional[datetime] = None, until: 
     cached = summary_cache.get(key)
     if cached is not None:
         return cached
-    query = db.query(TimeEntry).filter(TimeEntry.user_id == user_id)
+    query = db.query(TimeEntry).options(joinedload(TimeEntry.project)).filter(TimeEntry.user_id == user_id)
     if since:
         query = query.filter(TimeEntry.start >= since)
     if until:
