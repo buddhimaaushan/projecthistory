@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0
+
+- JSON logging, request ids, Prometheus metrics and a fixed window rate limiter.
+- Report summaries are cached for thirty seconds and invalidated on writes.
+- CLI rewritten with typer and rich, including an `api` command.
+- Playwright end-to-end tests cover login and the timer.
+
+
 ## 0.7.0
 
 - Email and password accounts with JWT access tokens.
