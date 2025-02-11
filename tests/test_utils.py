@@ -1138,3 +1138,10 @@ def test_date_range_past_end_across_timezones():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_timezone_under_heavy_load():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
