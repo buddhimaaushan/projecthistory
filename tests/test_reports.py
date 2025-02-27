@@ -519,3 +519,9 @@ def test_report_long_running_across_midnight():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_past_end_when_offline():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
