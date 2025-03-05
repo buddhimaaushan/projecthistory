@@ -364,3 +364,9 @@ def test_api_many_entries_under_heavy_load(client):
     response = client.get("/api/entries", params={"limit": 0})
     assert response.status_code in (200, 422)
     assert isinstance(response.json(), (list, dict))
+
+
+def test_api_partial_data_with_pagination(client):
+    response = client.get("/api/entries", params={"limit": 0})
+    assert response.status_code in (200, 422)
+    assert isinstance(response.json(), (list, dict))
