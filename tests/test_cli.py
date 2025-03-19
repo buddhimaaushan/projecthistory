@@ -61,3 +61,10 @@ def test_export_and_import(storage, tmp_path):
     assert runner.invoke(cli.app, ["export", str(target), "--format", "json"]).exit_code == 0
     assert target.exists()
     assert runner.invoke(cli.app, ["import", str(target)]).exit_code == 0
+
+
+def test_cli_stale_cache_on_an_empty_database(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
