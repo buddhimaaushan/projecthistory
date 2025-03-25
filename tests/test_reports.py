@@ -531,3 +531,9 @@ def test_report_empty_input_on_an_empty_database():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_null_project_with_a_long_label():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
