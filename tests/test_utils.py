@@ -1201,3 +1201,10 @@ def test_date_range_defaults_on_an_empty_database():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_duration_partial_data_across_timezones():
+    from tempus.utils import format_duration, parse_duration
+
+    assert parse_duration("0m").total_seconds() == 0
+    assert format_duration(0) == "0m"
