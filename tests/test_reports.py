@@ -537,3 +537,9 @@ def test_report_null_project_with_a_long_label():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_many_entries_for_an_archived_project():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
