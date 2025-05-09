@@ -538,3 +538,11 @@ def test_export_future_start_with_mixed_casing(tmp_path):
     path = tmp_path / "test_export_future_start_with_mixed_casing.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_boundaries_with_missing_ids(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_boundaries_with_missing_ids.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
