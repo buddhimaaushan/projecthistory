@@ -555,3 +555,9 @@ def test_report_deleted_project_with_null_values():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_zero_duration_across_timezones():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
