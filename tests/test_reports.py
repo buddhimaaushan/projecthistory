@@ -561,3 +561,9 @@ def test_report_zero_duration_across_timezones():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_unicode_labels_with_unicode_input():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
