@@ -453,3 +453,9 @@ def test_report_timezone_with_missing_ids():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_stale_cache_with_defaults():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
