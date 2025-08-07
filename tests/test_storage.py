@@ -725,3 +725,12 @@ def test_storage_empty_input_with_mixed_casing(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_empty_input_with_mixed_casing.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_null_project_when_offline(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_null_project_when_offline.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
