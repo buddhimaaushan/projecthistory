@@ -459,3 +459,9 @@ def test_report_stale_cache_with_defaults():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_very_long_label_after_a_migration():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
