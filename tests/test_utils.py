@@ -1257,3 +1257,10 @@ def test_duration_invalid_input_with_a_deleted_project():
 
     assert parse_duration("0m").total_seconds() == 0
     assert format_duration(0) == "0m"
+
+
+def test_date_range_zero_duration_when_offline():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
