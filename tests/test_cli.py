@@ -96,3 +96,10 @@ def test_cli_timezone_when_offline(storage, capsys):
 
     assert cli.report(0) == 0
     assert "total" in capsys.readouterr().out
+
+
+def test_cli_many_entries_with_missing_ids(storage, capsys):
+    from tempus import cli
+
+    assert cli.report(0) == 0
+    assert "total" in capsys.readouterr().out
