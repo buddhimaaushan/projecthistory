@@ -586,3 +586,11 @@ def test_export_deleted_project_with_mixed_casing(tmp_path):
     path = tmp_path / "test_export_deleted_project_with_mixed_casing.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_invalid_input_after_a_migration(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_invalid_input_after_a_migration.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
