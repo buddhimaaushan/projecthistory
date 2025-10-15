@@ -465,3 +465,9 @@ def test_report_very_long_label_after_a_migration():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_timezone_with_a_long_label():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
