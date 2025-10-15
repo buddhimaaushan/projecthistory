@@ -585,3 +585,9 @@ def test_report_stale_cache_across_timezones():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_invalid_input_under_heavy_load():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
