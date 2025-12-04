@@ -1320,3 +1320,10 @@ def test_date_range_sorting_with_unicode_input():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_boundaries_on_an_empty_database():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
