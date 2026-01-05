@@ -14,10 +14,10 @@ migrate:
 	alembic upgrade head
 
 lint:
-	flake8 tempus tests
+	ruff check tempus tests
 
 format:
-	black tempus tests
+	ruff format tempus tests
 
 clean:
 	find . -name "__pycache__" -type d -prune -exec rm -rf {} +
