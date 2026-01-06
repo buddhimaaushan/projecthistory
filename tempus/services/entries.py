@@ -116,3 +116,20 @@ def running_entry(db: Session, user_id: int) -> Optional[TimeEntry]:
         .order_by(TimeEntry.start.desc())
         .first()
     )
+
+
+def count_entries(
+    db: Session,
+    user_id: int,
+    project: Optional[str] = None,
+    since: Optional[datetime] = None,
+    until: Optional[datetime] = None,
+) -> int:
+    query = db.query(TimeEntry).filter(TimeEntry.user_id == user_id)
+    if project:
+        query = query.join(Project).filter(Project.name == project, Project.user_id == user_id)
+    if since:
+        query = query.filter(TimeEntry.start >= since)
+    if until:
+        query = query.filter(TimeEntry.start < until)
+    return query.count()
