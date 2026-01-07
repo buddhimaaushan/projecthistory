@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy.orm import Session
 
 from ...services import entries as service
@@ -13,6 +13,7 @@ router = APIRouter(prefix="/entries", tags=["entries"])
 
 @router.get("", response_model=List[EntryRead])
 def list_entries(
+    response: Response,
     limit: int = Query(50, ge=0, le=200),
     offset: int = Query(0, ge=0),
     project: Optional[str] = None,
@@ -21,6 +22,9 @@ def list_entries(
     db: Session = Depends(get_db),
     user=Depends(get_current_user),
 ):
+    response.headers["X-Total-Count"] = str(
+        service.count_entries(db, user.id, project=project, since=since, until=until)
+    )
     return service.list_entries(
         db, user.id, limit=limit, offset=offset, project=project, since=since, until=until
     )
