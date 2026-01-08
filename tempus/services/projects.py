@@ -29,3 +29,10 @@ def archive_project(db: Session, project: Project) -> Project:
     db.commit()
     db.refresh(project)
     return project
+
+
+def rename_project(db: Session, project: Project, name: str) -> Project:
+    project.name = name
+    db.commit()
+    db.refresh(project)
+    return project

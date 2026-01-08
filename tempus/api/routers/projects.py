@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from ...services import projects as service
 from ..deps import get_current_user
 from ..deps import get_db
-from ..schemas import ProjectCreate, ProjectRead
+from ..schemas import ProjectCreate, ProjectRead, ProjectUpdate
 
 router = APIRouter(prefix="/projects", tags=["projects"])
 
@@ -27,3 +27,18 @@ def archive_project(project_id: int, db: Session = Depends(get_db), user=Depends
     if project is None:
         raise HTTPException(status_code=404, detail="project not found")
     return service.archive_project(db, project)
+
+
+@router.patch("/{project_id}", response_model=ProjectRead)
+def update_project(
+    project_id: int,
+    payload: ProjectUpdate,
+    db: Session = Depends(get_db),
+    user=Depends(get_current_user),
+):
+    project = service.get_project(db, project_id, user.id)
+    if project is None:
+        raise HTTPException(status_code=404, detail="project not found")
+    if payload.name is not None:
+        project = service.rename_project(db, project, payload.name)
+    return project
