@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { useTheme } from "../hooks/useTheme";
 import { OfflineBanner } from "./OfflineBanner";
 
 const links = [
@@ -16,6 +17,8 @@ interface Props {
 }
 
 export function Layout({ user, onLogout }: Props) {
+  const { theme, toggle } = useTheme();
+
   return (
     <div className="app">
       <header className="topbar">
@@ -32,6 +35,9 @@ export function Layout({ user, onLogout }: Props) {
             </NavLink>
           ))}
         </nav>
+        <button className="link-button" onClick={toggle} aria-label="Toggle theme">
+          {theme === "dark" ? "Light mode" : "Dark mode"}
+        </button>
         {user ? (
           <div className="account">
             <span>{user.display_name || user.email}</span>
