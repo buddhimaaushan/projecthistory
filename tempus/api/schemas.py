@@ -33,6 +33,12 @@ class ProjectCreate(BaseModel):
     archived: bool = False
 
 
+class ProjectUpdate(BaseModel):
+    name: Optional[str] = Field(None, min_length=1, max_length=120)
+    colour: Optional[str] = Field(None, regex="^#[0-9a-fA-F]{6}$")
+    archived: Optional[bool] = None
+
+
 class ProjectRead(ProjectCreate):
     id: int
 
