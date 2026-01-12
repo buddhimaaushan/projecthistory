@@ -3,6 +3,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from ..db.models import Project
+from .cache import summary_cache
 
 
 def list_projects(db: Session, user_id: int, include_archived: bool = False) -> List[Project]:
@@ -17,6 +18,7 @@ def create_project(db: Session, data, user_id: int) -> Project:
     db.add(project)
     db.commit()
     db.refresh(project)
+    summary_cache.invalidate()
     return project
 
 
@@ -28,6 +30,7 @@ def archive_project(db: Session, project: Project) -> Project:
     project.archived = True
     db.commit()
     db.refresh(project)
+    summary_cache.invalidate()
     return project
 
 
@@ -35,4 +38,5 @@ def rename_project(db: Session, project: Project, name: str) -> Project:
     project.name = name
     db.commit()
     db.refresh(project)
+    summary_cache.invalidate()
     return project
