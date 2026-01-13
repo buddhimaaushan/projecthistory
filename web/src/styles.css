@@ -329,3 +329,16 @@ p {
     background-position: -200% 0;
   }
 }
+
+
+[data-theme="dark"] {
+  --bg: #0b1120;
+  --surface: #111827;
+  --border: #1f2937;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #818cf8;
+  --accent-soft: #1e1b4b;
+  --danger: #f87171;
+  color-scheme: dark;
+}
