@@ -342,3 +342,38 @@ p {
   --danger: #f87171;
   color-scheme: dark;
 }
+
+
+@media (max-width: 720px) {
+  .app {
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .timer-card,
+  .timer-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .entry-table th:nth-child(3),
+  .entry-table td:nth-child(3),
+  .entry-table th:nth-child(4),
+  .entry-table td:nth-child(4) {
+    display: none;
+  }
+
+  .login-card {
+    padding: 1.5rem;
+  }
+}
