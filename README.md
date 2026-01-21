@@ -29,7 +29,8 @@ $ tempus report --days 7 --by-project
 $ tempus export --format csv ~/Downloads/tempus.csv
 ```
 
-See [docs/cli.md](docs/cli.md) for the full command list.
+See [docs/cli.md](docs/cli.md) for the full command list, or the published
+documentation site for the longer guides.
 
 ## HTTP API
 
