@@ -1,0 +1,19 @@
+site_name: tempus
+site_description: A small self-hosted time tracker
+repo_url: https://github.com/buddhimaaushan/projecthistory
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - content.code.copy
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - CLI: cli.md
+  - API: api.md
+  - Configuration: configuration.md
+  - Frontend: frontend.md
+  - Deployment: deployment.md
+  - Authentication: auth.md
+  - Observability: observability.md
+  - Architecture: architecture.md
