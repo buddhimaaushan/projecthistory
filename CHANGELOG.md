@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Ruff replaces black, isort and flake8.
+- Entry listings expose `X-Total-Count` and a CSV export endpoint.
+- Projects can be renamed through the API.
+- Documentation site, security policy and community files.
+
+
 ## 0.8.0
 
 - JSON logging, request ids, Prometheus metrics and a fixed window rate limiter.
