@@ -1,7 +1,7 @@
 # tempus
 
-A small, self-hosted time tracker. It started as a single Python file and now
-ships a CLI, an HTTP API and a small web dashboard.
+A small, self-hosted time tracker. It started as a single Python file in 2019
+and now ships a CLI, an HTTP API and a small web dashboard.
 
 ## Features
 
@@ -67,6 +67,11 @@ $ make api
 
 The dashboard lives in `web/`. See [docs/frontend.md](docs/frontend.md) and
 [docs/release.md](docs/release.md).
+
+## Status
+
+Version 1.0.0. The project is maintained in the open; issues and pull requests
+are welcome. See [CHANGELOG.md](CHANGELOG.md) for the history.
 
 ## License
 
