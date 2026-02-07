@@ -55,6 +55,19 @@ package. See [docs/api.md](docs/api.md).
 | `docs/` | Hand written documentation |
 | `scripts/` | Maintenance scripts |
 
+## Development
+
+```
+$ make install
+$ make test
+$ make lint
+$ make migrate
+$ make api
+```
+
+The dashboard lives in `web/`. See [docs/frontend.md](docs/frontend.md) and
+[docs/release.md](docs/release.md).
+
 ## License
 
 MIT
