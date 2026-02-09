@@ -3,19 +3,17 @@
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+from sqlalchemy import text
+from sqlalchemy.orm import Session
+from starlette.responses import Response
 
 from .. import __version__
 from ..logging import configure_logging
+from .deps import get_db
 from .middleware import RequestContextMiddleware
 from .ratelimit import RateLimitMiddleware
-from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
-from starlette.responses import Response
-
 from .routers import auth, entries, projects, reports, tags
-from sqlalchemy import text
-from sqlalchemy.orm import Session
-
-from .deps import get_db
 from .schemas import HealthRead
 
 configure_logging()
@@ -28,7 +26,6 @@ app = FastAPI(
 
 app.add_middleware(RateLimitMiddleware)
 app.add_middleware(RequestContextMiddleware)
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://localhost:3000"],
@@ -36,7 +33,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 app.include_router(auth.router, prefix="/api")
 app.include_router(entries.router, prefix="/api")
