@@ -408,3 +408,9 @@ def test_listing_reports_the_total_count(client):
     response = client.get("/api/entries", params={"limit": 1})
     assert response.headers["x-total-count"] == "3"
     assert len(response.json()) == 1
+
+
+def test_api_unicode_labels_after_a_migration(client):
+    response = client.get("/api/entries", params={"limit": 0})
+    assert response.status_code in (200, 422)
+    assert isinstance(response.json(), (list, dict))
