@@ -788,3 +788,12 @@ def test_storage_future_start_across_midnight(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_future_start_across_midnight.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_archived_project_across_midnight(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_archived_project_across_midnight.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
