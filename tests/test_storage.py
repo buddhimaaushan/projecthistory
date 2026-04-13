@@ -815,3 +815,12 @@ def test_storage_duplicates_after_a_reopen(tmp_path):
     storage = SqliteStorage(str(tmp_path / "test_storage_duplicates_after_a_reopen.db"))
     entry = storage.add(Entry(label="deep work"))
     assert storage.all()[0].id == entry.id
+
+
+def test_storage_missing_id_with_null_values(tmp_path):
+    from tempus.models import Entry
+    from tempus.storage import SqliteStorage
+
+    storage = SqliteStorage(str(tmp_path / "test_storage_missing_id_with_null_values.db"))
+    entry = storage.add(Entry(label="deep work"))
+    assert storage.all()[0].id == entry.id
