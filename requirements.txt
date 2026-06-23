@@ -10,4 +10,4 @@ python-jose[cryptography]==3.3.0
 psycopg2-binary==2.9.9
 prometheus-client==0.21.3
 typer==0.16.5
-rich==14.0.2
+rich==14.0.3
