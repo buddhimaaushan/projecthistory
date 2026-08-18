@@ -633,3 +633,9 @@ def test_report_past_end_with_a_long_label():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_zero_duration_under_heavy_load():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
