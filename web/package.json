@@ -19,7 +19,7 @@
     "react": "19.2.1",
     "react-dom": "19.1.0",
     "react-router-dom": "6.14.0",
-    "recharts": "2.13.9"
+    "recharts": "2.14.0"
   },
   "devDependencies": {
     "@playwright/test": "1.44.1",
