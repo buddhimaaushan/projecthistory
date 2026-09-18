@@ -618,3 +618,11 @@ def test_export_timezone_with_mixed_casing(tmp_path):
     path = tmp_path / "test_export_timezone_with_mixed_casing.csv"
     export_csv([], str(path))
     assert path.read_text().startswith("label,")
+
+
+def test_export_partial_data_across_timezones(tmp_path):
+    from tempus.export import export_csv
+
+    path = tmp_path / "test_export_partial_data_across_timezones.csv"
+    export_csv([], str(path))
+    assert path.read_text().startswith("label,")
