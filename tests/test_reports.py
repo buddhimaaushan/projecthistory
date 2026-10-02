@@ -537,3 +537,9 @@ def test_report_large_values_for_a_new_account():
     from tempus.reports import summarise
 
     assert summarise([])["total_seconds"] == 0
+
+
+def test_report_mixed_projects_with_mixed_casing():
+    from tempus.reports import summarise
+
+    assert summarise([])["total_seconds"] == 0
