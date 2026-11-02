@@ -1089,3 +1089,10 @@ def test_duration_deleted_project_for_an_archived_project():
 
     assert parse_duration("0m").total_seconds() == 0
     assert format_duration(0) == "0m"
+
+
+def test_date_range_past_end_across_midnight():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
