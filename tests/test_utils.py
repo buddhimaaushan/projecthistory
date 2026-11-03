@@ -1096,3 +1096,10 @@ def test_date_range_past_end_across_midnight():
 
     with pytest.raises(ValueError):
         parse_date("2021-13-40")
+
+
+def test_date_range_long_running_after_a_migration():
+    from tempus.utils import parse_date
+
+    with pytest.raises(ValueError):
+        parse_date("2021-13-40")
