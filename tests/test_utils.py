@@ -1474,3 +1474,10 @@ def test_duration_mixed_projects_for_an_archived_project():
 
     assert parse_duration("0m").total_seconds() == 0
     assert format_duration(0) == "0m"
+
+
+def test_duration_long_running_with_missing_ids():
+    from tempus.utils import format_duration, parse_duration
+
+    assert parse_duration("0m").total_seconds() == 0
+    assert format_duration(0) == "0m"
